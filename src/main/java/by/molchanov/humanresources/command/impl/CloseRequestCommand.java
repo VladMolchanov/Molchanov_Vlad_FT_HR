@@ -9,6 +9,12 @@ import by.molchanov.humanresources.executor.impl.DeleteCloseExecutorImpl;
 
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.REQUEST_ID;
 
+/**
+ * Class {@link CloseRequestCommand} is used for rejecting aspirant request (set another request status)  .
+ *
+ * @author MolcanovVladislav
+ * @see ConcreteCommand
+ */
 public class CloseRequestCommand implements ConcreteCommand {
     private static final CloseRequestCommand CLOSE_REQUEST_COMMAND = new CloseRequestCommand();
     private static final ConcreteCommand FILL_CONTENT_COMMAND = FillContentCommand.getInstance();

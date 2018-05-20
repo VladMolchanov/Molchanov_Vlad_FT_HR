@@ -3,6 +3,11 @@ package by.molchanov.humanresources.dto;
 import by.molchanov.humanresources.entity.JobVacancy;
 import by.molchanov.humanresources.entity.Organization;
 
+/**
+ * Class {@link VacancyDataDTO} is used for transfer data about user between command and service level.
+ *
+ * @author MolcanovVladislav
+ */
 public class VacancyDataDTO {
     private JobVacancy jobVacancy;
     private String infoMessage;

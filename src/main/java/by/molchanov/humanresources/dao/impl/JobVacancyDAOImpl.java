@@ -15,6 +15,14 @@ import java.util.List;
 
 import static by.molchanov.humanresources.dao.SQLQueryVariable.*;
 
+/**
+ * Class {@link JobVacancyDAOImpl} used for work with database table 'job_vacancy'.
+ * Contains specified method for work with table 'job_vacancy'.
+ *
+ * @author MolchanovVladislav
+ * @see JobVacancyDAO
+ * @see AbstractDAO
+ */
 public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVacancyDAO {
     private static final JobVacancyDAOImpl JOB_REQUEST_DAO = new JobVacancyDAOImpl();
 

@@ -8,7 +8,7 @@ import by.molchanov.humanresources.dao.impl.JobRequestDAOImpl;
 import by.molchanov.humanresources.dao.impl.JobVacancyDAOImpl;
 import by.molchanov.humanresources.dao.impl.OrganizationDAOImpl;
 import by.molchanov.humanresources.dao.impl.UserDAOImpl;
-import by.molchanov.humanresources.dto.JobRequestDTO;
+import by.molchanov.humanresources.dto.JobRequestDataDTO;
 import by.molchanov.humanresources.dto.OrgDataDTO;
 import by.molchanov.humanresources.dto.UserDataDTO;
 import by.molchanov.humanresources.dto.VacancyDataDTO;
@@ -25,6 +25,12 @@ import static by.molchanov.humanresources.validator.UserDataValidation.*;
 import static by.molchanov.humanresources.validator.OrganizationDataValidation.*;
 import static by.molchanov.humanresources.validator.VacancyRequestDataValidation.*;
 
+/**
+ * Class {@link RegistrationExecutorImpl} used for different registration.
+ *
+ * @author MolcanovVladislav
+ * @see RegistrationExecutor
+ */
 public class RegistrationExecutorImpl implements RegistrationExecutor {
     private static final RegistrationExecutorImpl REGISTRATION_EXECUTOR = new RegistrationExecutorImpl();
 
@@ -139,9 +145,9 @@ public class RegistrationExecutorImpl implements RegistrationExecutor {
     }
 
     @Override
-    public void requestSignUp(JobRequestDTO jobRequestDTO) throws CustomExecutorException {
-        String resume = jobRequestDTO.getJobRequest().getResume();
-        JobRequest jobRequest = jobRequestDTO.getJobRequest();
+    public void requestSignUp(JobRequestDataDTO jobRequestDataDTO) throws CustomExecutorException {
+        String resume = jobRequestDataDTO.getJobRequest().getResume();
+        JobRequest jobRequest = jobRequestDataDTO.getJobRequest();
         String infoMessage = USER_SUCCESSFUL_REGISTRATION;
         if (!isResumeCorrect(resume)) {
             infoMessage = REQUEST_INCORRECT_RESUME;
@@ -154,6 +160,6 @@ public class RegistrationExecutorImpl implements RegistrationExecutor {
                 throw new CustomExecutorException(e);
             }
         }
-        jobRequestDTO.setInfoMessage(infoMessage);
+        jobRequestDataDTO.setInfoMessage(infoMessage);
     }
 }

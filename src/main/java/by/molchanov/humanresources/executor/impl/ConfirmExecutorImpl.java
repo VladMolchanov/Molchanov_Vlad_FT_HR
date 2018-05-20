@@ -14,6 +14,12 @@ import by.molchanov.humanresources.executor.ConfirmExecutor;
 
 import java.util.List;
 
+/**
+ * Class {@link ConfirmExecutorImpl} used for confirm records.
+ *
+ * @author MolcanovVladislav
+ * @see ConfirmExecutor
+ */
 public class ConfirmExecutorImpl implements ConfirmExecutor {
     private static final ConfirmExecutorImpl CONFIRM_EXECUTOR = new ConfirmExecutorImpl();
 

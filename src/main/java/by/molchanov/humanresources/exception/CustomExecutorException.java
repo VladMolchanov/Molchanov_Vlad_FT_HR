@@ -1,5 +1,11 @@
 package by.molchanov.humanresources.exception;
 
+/**
+ * Class {@link CustomExecutorException} is used to store service level exceptions.
+ *
+ * @author MolcanovVladislav
+ * @see Exception
+ */
 public class CustomExecutorException extends Exception {
     public CustomExecutorException() {
     }

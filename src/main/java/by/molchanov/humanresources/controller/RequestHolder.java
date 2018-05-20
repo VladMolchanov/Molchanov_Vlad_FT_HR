@@ -9,6 +9,11 @@ import java.util.*;
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.COMMAND;
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.HASH;
 
+/**
+ * Class {@link RequestHolder} - wrapper class is used for read and store data from servlet request.
+ *
+ * @author MolcanovVladislav
+ */
 public class RequestHolder {
     private static final int PRIMARY_HASH = 0;
     private static final String EMPTY_STRING = "";

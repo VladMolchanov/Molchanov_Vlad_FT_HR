@@ -1,5 +1,11 @@
 package by.molchanov.humanresources.executor;
 
+/**
+ * Class {@link PropertyMessageVariablesName} contains names of messages in property file,
+ * which used for user informing
+ *
+ * @author MolcanovVladislav
+ */
 public class PropertyMessageVariablesName {
     public static final String UNKNOWN_USER = "content.information.unknown.user";
     public static final String USER_AUTHENTICATION_SUCCESSFUL = "content.information.successful.authentication";

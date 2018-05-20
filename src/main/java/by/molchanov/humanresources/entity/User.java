@@ -2,6 +2,11 @@ package by.molchanov.humanresources.entity;
 
 import java.io.Serializable;
 
+/**
+ * Class {@link User} is used to store information about users.
+ *
+ * @author MolchanovVladislav
+ */
 public class User implements Serializable {
     private int id;
     private String email;

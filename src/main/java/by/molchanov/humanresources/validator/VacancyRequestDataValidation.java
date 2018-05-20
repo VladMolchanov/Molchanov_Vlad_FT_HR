@@ -3,6 +3,11 @@ package by.molchanov.humanresources.validator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class {@link VacancyRequestDataValidation} used for validation of vacancy data.
+ *
+ * @author MolcanovVladislav
+ */
 public class VacancyRequestDataValidation {
     private static final String REGEX_REQUIREMENT = "^[-,.?!'\"()\\wА-Яа-я\\s]{1,3000}$";
     private static final String REGEX_VACANCY_NAME = "^[-,.?!'\"()\\wА-Яа-я\\s]{1,45}$";

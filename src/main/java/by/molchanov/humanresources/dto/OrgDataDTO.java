@@ -2,6 +2,11 @@ package by.molchanov.humanresources.dto;
 
 import by.molchanov.humanresources.entity.User;
 
+/**
+ * Class {@link OrgDataDTO} is used for transfer data about organization between command and service level.
+ *
+ * @author MolcanovVladislav
+ */
 public class OrgDataDTO {
     private User orgDirector;
     private String infoMessage;

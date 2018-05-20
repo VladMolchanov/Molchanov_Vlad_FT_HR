@@ -1,5 +1,10 @@
 package by.molchanov.humanresources.entity;
 
+/**
+ * Enum {@link JobVacancyStatusType} contains types of job vacancies.
+ *
+ * @author MolcanovVladislav
+ */
 public enum JobVacancyStatusType {
     OPEN("close"), CLOSE("open"), NEW("new");
 

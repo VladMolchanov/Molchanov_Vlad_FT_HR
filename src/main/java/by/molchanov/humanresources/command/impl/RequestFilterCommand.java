@@ -16,6 +16,12 @@ import java.util.List;
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.*;
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.VACANCY_LIST;
 
+/**
+ * Class {@link RequestFilterCommand} is used for searching and filter requests content.
+ *
+ * @author MolcanovVladislav
+ * @see ConcreteCommand
+ */
 public class RequestFilterCommand implements ConcreteCommand {
     private static final RequestFilterCommand REQUEST_FILTER_COMMAND = new RequestFilterCommand();
     private static final FilterExecutor VACANCY_FILTER_EXECUTOR = FilterExecutorImpl.getInstance();

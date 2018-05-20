@@ -13,6 +13,12 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.*;
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.FIRST_NAME;
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.LAST_NAME;
 
+/**
+ * Class {@link UserRegistrationCommand} is used for new user registration.
+ *
+ * @author MolcanovVladislav
+ * @see ConcreteCommand
+ */
 public class UserRegistrationCommand implements ConcreteCommand {
     private static final UserRegistrationCommand USER_REGISTRATION_COMMAND = new UserRegistrationCommand();
     private static final RegistrationExecutor REGISTRATION_EXECUTOR = RegistrationExecutorImpl.getInstance();

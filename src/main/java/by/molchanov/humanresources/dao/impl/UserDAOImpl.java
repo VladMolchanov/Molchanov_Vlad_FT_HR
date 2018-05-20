@@ -16,6 +16,14 @@ import java.util.List;
 
 import static by.molchanov.humanresources.dao.SQLQueryVariable.*;
 
+/**
+ * Class {@link UserDAOImpl} used for work with database table 'user'.
+ * Contains specified method for work with table 'user'.
+ *
+ * @author MolchanovVladislav
+ * @see UserDAO
+ * @see AbstractDAO
+ */
 public class UserDAOImpl extends AbstractDAO<User> implements UserDAO {
     private static final UserDAOImpl USER_DAO = new UserDAOImpl();
 

@@ -9,6 +9,12 @@ import by.molchanov.humanresources.executor.impl.DeleteCloseExecutorImpl;
 
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.VACANCY_ID;
 
+/**
+ * Class {@link CloseVacancyCommand} is used for closing job vacancy (set another vacancy status).
+ *
+ * @author MolcanovVladislav
+ * @see ConcreteCommand
+ */
 public class CloseVacancyCommand implements ConcreteCommand {
     private static final CloseVacancyCommand CLOSE_VACANCY_COMMAND = new CloseVacancyCommand();
     private static final ConcreteCommand FILL_CONTENT_COMMAND = FillContentCommand.getInstance();

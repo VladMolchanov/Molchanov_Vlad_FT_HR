@@ -6,6 +6,12 @@ import by.molchanov.humanresources.exception.CustomBrokerException;
 
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.LOCALE;
 
+/**
+ * Class {@link EstablishEnglishLocaleCommand} is used for set english language to representation.
+ *
+ * @author MolcanovVladislav
+ * @see ConcreteCommand
+ */
 public class EstablishEnglishLocaleCommand implements ConcreteCommand {
     private static final EstablishEnglishLocaleCommand EST_ENG_LOC_COMMAND = new EstablishEnglishLocaleCommand();
     private static final ConcreteCommand FILL_VACANCY_COMMAND = FillContentCommand.getInstance();

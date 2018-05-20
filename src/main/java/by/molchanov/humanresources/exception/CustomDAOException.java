@@ -1,5 +1,11 @@
 package by.molchanov.humanresources.exception;
 
+/**
+ * Class {@link CustomDAOException} is used to store dao level exceptions.
+ *
+ * @author MolcanovVladislav
+ * @see Exception
+ */
 public class CustomDAOException extends Exception {
     public CustomDAOException() {
     }

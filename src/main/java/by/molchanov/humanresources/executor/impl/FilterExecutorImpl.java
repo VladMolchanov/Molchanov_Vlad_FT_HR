@@ -18,6 +18,12 @@ import static by.molchanov.humanresources.entity.JobVacancy.COMPARE_BY_ORG_NAME;
 import static by.molchanov.humanresources.entity.JobRequest.COMPARE_BY_USER_NAME;
 import static by.molchanov.humanresources.entity.JobRequest.COMPARE_BY_VAC_NAME;
 
+/**
+ * Class {@link FilterExecutorImpl} used for searching and filter records.
+ *
+ * @author MolcanovVladislav
+ * @see FilterExecutor
+ */
 public class FilterExecutorImpl implements FilterExecutor {
     private static final FilterExecutorImpl VACANCY_FILTER_EXECUTOR = new FilterExecutorImpl();
     private static final FillContentExecutor FILL_CONTENT_EXECUTOR = FillContentExecutorImpl.getInstance();

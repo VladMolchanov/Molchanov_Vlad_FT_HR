@@ -3,6 +3,11 @@ package by.molchanov.humanresources.validator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class {@link UserDataValidation} used for validation of user data.
+ *
+ * @author MolcanovVladislav
+ */
 public class UserDataValidation {
     private static final String REGEX_EMAIL_SPLITTER = "[@]";
     private static final String REGEX_EMAIL_USERNAME = "^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(\\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*$";

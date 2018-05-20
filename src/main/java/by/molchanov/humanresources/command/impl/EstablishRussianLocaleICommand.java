@@ -6,6 +6,12 @@ import by.molchanov.humanresources.exception.CustomBrokerException;
 
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.LOCALE;
 
+/**
+ * Class {@link EstablishRussianLocaleICommand} is used for set russian language to representation.
+ *
+ * @author MolcanovVladislav
+ * @see ConcreteCommand
+ */
 public class EstablishRussianLocaleICommand implements ConcreteCommand {
     private static final EstablishRussianLocaleICommand EST_RUS_LOC_COMMAND = new EstablishRussianLocaleICommand();
     private static final ConcreteCommand FILL_VACANCY_COMMAND = FillContentCommand.getInstance();

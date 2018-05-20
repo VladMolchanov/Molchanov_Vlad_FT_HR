@@ -15,6 +15,12 @@ import java.util.List;
 
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.*;
 
+/**
+ * Class {@link FillContentCommand} is used for create page content, such as request, vacancies and other.
+ *
+ * @author MolcanovVladislav
+ * @see ConcreteCommand
+ */
 public class FillContentCommand implements ConcreteCommand {
     private static final FillContentCommand FILL_VACANCY_COMMAND = new FillContentCommand();
     private static final FillContentExecutor FILL_VACANCY_EXECUTOR = FillContentExecutorImpl.getInstance();

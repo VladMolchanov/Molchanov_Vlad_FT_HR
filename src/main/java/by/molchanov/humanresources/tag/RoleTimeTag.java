@@ -6,6 +6,11 @@ import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
 import java.util.GregorianCalendar;
 
+/**
+ * Class {@link RoleTimeTag} used for display user role in system and current time.
+ *
+ * @author MolcanovVladislav
+ */
 public class RoleTimeTag extends TagSupport {
     private static final String DEFAULT_ROLE = "guest";
     private String role;

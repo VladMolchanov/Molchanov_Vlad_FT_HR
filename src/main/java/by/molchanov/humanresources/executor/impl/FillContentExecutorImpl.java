@@ -16,6 +16,12 @@ import java.util.List;
 import static by.molchanov.humanresources.entity.JobVacancyStatusType.OPEN;
 import static by.molchanov.humanresources.entity.JobVacancyStatusType.NEW;
 
+/**
+ * Class {@link FillContentExecutorImpl} used for fill page content.
+ *
+ * @author MolcanovVladislav
+ * @see FillContentExecutor
+ */
 public class FillContentExecutorImpl implements FillContentExecutor {
     private static final FillContentExecutorImpl FILL_VACANCY_EXECUTOR = new FillContentExecutorImpl();
     private static final String ROLE_ADMIN = "admin";

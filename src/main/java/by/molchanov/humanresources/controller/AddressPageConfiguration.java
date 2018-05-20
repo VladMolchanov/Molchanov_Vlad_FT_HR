@@ -7,6 +7,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Class {@link AddressPageConfiguration} - wrapper class is used for read data about
+ * page addresses from property file.
+ *
+ * @author MolcanovVladislav
+ */
 public class AddressPageConfiguration {
     private static final AddressPageConfiguration addressPageConfiguration = new AddressPageConfiguration();
     private static final Logger LOGGER = LogManager.getLogger();

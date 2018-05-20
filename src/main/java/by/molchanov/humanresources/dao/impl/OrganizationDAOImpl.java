@@ -13,6 +13,14 @@ import java.util.List;
 
 import static by.molchanov.humanresources.dao.SQLQueryVariable.*;
 
+/**
+ * Class {@link OrganizationDAOImpl} used for work with database table 'organization'.
+ * Contains specified method for work with table 'organization'.
+ *
+ * @author MolchanovVladislav
+ * @see OrganizationDAO
+ * @see AbstractDAO
+ */
 public class OrganizationDAOImpl extends AbstractDAO<Organization> implements OrganizationDAO {
     private static final OrganizationDAOImpl ORGANIZATION_DAO = new OrganizationDAOImpl();
 

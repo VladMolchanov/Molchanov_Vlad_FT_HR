@@ -14,6 +14,12 @@ import by.molchanov.humanresources.executor.impl.RegistrationExecutorImpl;
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.*;
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.TYPE;
 
+/**
+ * Class {@link OrgRegistrationCommand} is used for new organization registration.
+ *
+ * @author MolcanovVladislav
+ * @see ConcreteCommand
+ */
 public class OrgRegistrationCommand implements ConcreteCommand {
     private static final OrgRegistrationCommand ORG_REGISTRATION_COMMAND = new OrgRegistrationCommand();
     private static final RegistrationExecutor REGISTRATION_EXECUTOR = RegistrationExecutorImpl.getInstance();

@@ -2,6 +2,11 @@ package by.molchanov.humanresources.entity;
 
 import java.io.Serializable;
 
+/**
+ * Class {@link Organization} is used to store information about organizations.
+ *
+ * @author MolchanovVladislav
+ */
 public class Organization implements Serializable {
     private int id;
     private String name;

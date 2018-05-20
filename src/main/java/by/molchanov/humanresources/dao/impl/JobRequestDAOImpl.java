@@ -17,10 +17,17 @@ import java.util.List;
 import static by.molchanov.humanresources.dao.SQLQueryVariable.*;
 import static by.molchanov.humanresources.entity.JobRequestStatusType.*;
 
+/**
+ * Class {@link JobRequestDAOImpl} used for work with database table 'job_request'.
+ * Contains specified method for work with table 'job_request'.
+ *
+ * @author MolchanovVladislav
+ * @see JobRequestDAO
+ * @see AbstractDAO
+ */
 public class JobRequestDAOImpl extends AbstractDAO<JobRequest> implements JobRequestDAO {
     private static final JobRequestDAOImpl JOB_REQUEST_DAO = new JobRequestDAOImpl();
 
-    private static final String ADMIN = "admin";
     private static final String DIRECTOR = "director";
 
     private JobRequestDAOImpl() {

@@ -17,6 +17,12 @@ import java.util.List;
 import static by.molchanov.humanresources.executor.PropertyMessageVariablesName.UNKNOWN_USER;
 import static by.molchanov.humanresources.executor.PropertyMessageVariablesName.USER_AUTHENTICATION_SUCCESSFUL;
 
+/**
+ * Class {@link AuthenticationExecutorImpl} used for user authentication.
+ *
+ * @author MolcanovVladislav
+ * @see AuthenticationExecutor
+ */
 public class AuthenticationExecutorImpl implements AuthenticationExecutor {
     private static final AuthenticationExecutorImpl AUTHENTICATION_EXECUTOR = new AuthenticationExecutorImpl();
 

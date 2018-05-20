@@ -13,6 +13,11 @@ import java.math.BigInteger;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Class {@link AESEncryption} used for string encryption.
+ *
+ * @author MolcanovVladislav
+ */
 public class AESEncryption {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final int AES_KEY_LENGTH = 16;

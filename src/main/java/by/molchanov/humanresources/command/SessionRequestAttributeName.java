@@ -1,5 +1,11 @@
 package by.molchanov.humanresources.command;
 
+/**
+ * Class {@link SessionRequestAttributeName} contains session or request attribute names,
+ * which used for exchange between client and server parts.
+ *
+ * @author MolcanovVladislav
+ */
 public class SessionRequestAttributeName {
     public static final String COMMAND = "command";
     public static final String LOCALE = "locale";

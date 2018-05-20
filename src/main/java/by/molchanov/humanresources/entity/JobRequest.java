@@ -3,6 +3,11 @@ package by.molchanov.humanresources.entity;
 import java.io.Serializable;
 import java.util.Comparator;
 
+/**
+ * Class {@link JobRequest} is used to store information about job requests.
+ *
+ * @author MolchanovVladislav
+ */
 public class JobRequest implements Serializable {
     private int id;
     private JobVacancy jobVacancy;

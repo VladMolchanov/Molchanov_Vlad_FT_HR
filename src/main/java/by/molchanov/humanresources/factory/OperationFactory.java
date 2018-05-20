@@ -9,6 +9,9 @@ import org.apache.logging.log4j.Logger;
 
 import static by.molchanov.humanresources.command.ResponseType.FORWARD;
 
+/**
+ *
+ */
 public class OperationFactory {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final OperationFactory OPERATION_FACTORY = new OperationFactory();

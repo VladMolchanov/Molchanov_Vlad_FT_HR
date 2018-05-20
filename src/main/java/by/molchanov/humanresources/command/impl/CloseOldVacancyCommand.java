@@ -7,34 +7,29 @@ import by.molchanov.humanresources.exception.CustomExecutorException;
 import by.molchanov.humanresources.executor.DeleteCloseExecutor;
 import by.molchanov.humanresources.executor.impl.DeleteCloseExecutorImpl;
 
-import static by.molchanov.humanresources.command.SessionRequestAttributeName.USER_ID;
-
 /**
- * Class {@link DeleteUserCommand} is used for delete user from system.
+ * Class {@link CloseOldVacancyCommand} is used for close old vacancy (published more than 15 days ago).
  *
  * @author MolcanovVladislav
  * @see ConcreteCommand
  */
-public class DeleteUserCommand implements ConcreteCommand {
-    private static final DeleteUserCommand DELETE_USER_COMMAND = new DeleteUserCommand();
+public class CloseOldVacancyCommand implements ConcreteCommand {
+    private static final CloseOldVacancyCommand DELETE_OLD_VACANCY_COMMAND = new CloseOldVacancyCommand();
+    private static final DeleteCloseExecutor DELETE_CLOSE_EXECUTOR = DeleteCloseExecutorImpl.getInstance();
     private static final ConcreteCommand FILL_CONTENT_COMMAND = FillContentCommand.getInstance();
-    private static final DeleteCloseExecutor DELETE_EXECUTOR = DeleteCloseExecutorImpl.getInstance();
 
-    private static final int FIRST_INDEX = 0;
-
-    private DeleteUserCommand() {
+    private CloseOldVacancyCommand() {
 
     }
 
-    public static DeleteUserCommand getInstance() {
-        return DELETE_USER_COMMAND;
+    public static CloseOldVacancyCommand getInstance() {
+        return DELETE_OLD_VACANCY_COMMAND;
     }
 
     @Override
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
-        String requestId = requestHolder.getSingleRequestParameter(FIRST_INDEX, USER_ID);
         try {
-            DELETE_EXECUTOR.deleteUser(requestId);
+            DELETE_CLOSE_EXECUTOR.closeOldVacancy();
             FILL_CONTENT_COMMAND.execute(requestHolder);
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);

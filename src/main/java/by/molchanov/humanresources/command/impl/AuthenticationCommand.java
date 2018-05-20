@@ -10,6 +10,12 @@ import by.molchanov.humanresources.executor.impl.AuthenticationExecutorImpl;
 
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.*;
 
+/**
+ * Class {@link AuthenticationCommand} is used for user login to the system.
+ *
+ * @author MolcanovVladislav
+ * @see ConcreteCommand
+ */
 public class AuthenticationCommand implements ConcreteCommand {
     private static final AuthenticationCommand AUTHENTICATION_COMMAND = new AuthenticationCommand();
 

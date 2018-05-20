@@ -17,6 +17,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Class {@link DeleteCloseExecutorImpl} used for delete or close records.
+ *
+ * @author MolcanovVladislav
+ * @see DeleteCloseExecutor
+ */
 public class DeleteCloseExecutorImpl implements DeleteCloseExecutor {
     private static final DeleteCloseExecutorImpl DELETE_EXECUTOR = new DeleteCloseExecutorImpl();
 

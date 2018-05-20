@@ -4,6 +4,12 @@ import by.molchanov.humanresources.command.impl.*;
 
 import static by.molchanov.humanresources.command.ResponseType.FORWARD;
 
+/**
+ * Enum {@link ConcreteCommandType} contains all application commands.
+ * Used for getting necessary command object and representation type.
+ *
+ * @author MolcanovVladislav
+ */
 public enum ConcreteCommandType {
     AUTHENTICATION {
         @Override

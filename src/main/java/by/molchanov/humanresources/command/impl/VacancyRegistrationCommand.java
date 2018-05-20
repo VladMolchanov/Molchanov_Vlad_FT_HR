@@ -13,6 +13,12 @@ import by.molchanov.humanresources.executor.impl.RegistrationExecutorImpl;
 
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.*;
 
+/**
+ * Class {@link VacancyRegistrationCommand} is used for new vacancy registration.
+ *
+ * @author MolcanovVladislav
+ * @see ConcreteCommand
+ */
 public class VacancyRegistrationCommand implements ConcreteCommand {
     private static final VacancyRegistrationCommand VACANCY_REGISTRATION_COMMAND = new VacancyRegistrationCommand();
     private static final RegistrationExecutor REGISTRATION_EXECUTOR = RegistrationExecutorImpl.getInstance();

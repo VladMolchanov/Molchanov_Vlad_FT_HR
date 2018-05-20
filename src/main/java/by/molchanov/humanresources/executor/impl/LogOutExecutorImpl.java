@@ -7,6 +7,12 @@ import java.util.List;
 
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.*;
 
+/**
+ * Class {@link LogOutExecutorImpl} used for log out from system.
+ *
+ * @author MolcanovVladislav
+ * @see LogOutExecutor
+ */
 public class LogOutExecutorImpl implements LogOutExecutor {
     private static final LogOutExecutorImpl LOG_OUT_EXECUTOR = new LogOutExecutorImpl();
 

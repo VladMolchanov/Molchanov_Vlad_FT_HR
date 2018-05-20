@@ -7,6 +7,12 @@ import by.molchanov.humanresources.exception.CustomBrokerException;
 
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.LOCALE;
 
+/**
+ * Class {@link EstablishBelorussianLocaleCommand} is used for set belorussian language to representation.
+ *
+ * @author MolcanovVladislav
+ * @see ConcreteCommand
+ */
 public class EstablishBelorussianLocaleCommand implements ConcreteCommand {
     private static final EstablishBelorussianLocaleCommand EST_BEL_LOC_COMMAND = new EstablishBelorussianLocaleCommand();
     private static final ConcreteCommand FILL_VACANCY_COMMAND = FillContentCommand.getInstance();

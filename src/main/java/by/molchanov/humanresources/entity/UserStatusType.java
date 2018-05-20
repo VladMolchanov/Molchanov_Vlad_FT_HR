@@ -1,5 +1,10 @@
 package by.molchanov.humanresources.entity;
 
+/**
+ * Enum {@link JobRequestStatusType} contains types of job requests .
+ *
+ * @author MolcanovVladislav
+ */
 public enum UserStatusType {
     ADMIN("admin"), ASPIRANT("aspirant"), WORKER("worker"), DIRECTOR("director");
 

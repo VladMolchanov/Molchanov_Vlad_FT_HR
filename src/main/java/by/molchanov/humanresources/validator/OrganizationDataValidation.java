@@ -3,6 +3,11 @@ package by.molchanov.humanresources.validator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class {@link OrganizationDataValidation} used for validation of organization data.
+ *
+ * @author MolcanovVladislav
+ */
 public class OrganizationDataValidation {
     private static final String REGEX_ORG_NAME = "^[-\\wА-Яа-я\\s]{1,45}$";
     private static final String REGEX_WEB_SITE = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]{1,245}[-a-zA-Z0-9+&@#/%=~_|]$";

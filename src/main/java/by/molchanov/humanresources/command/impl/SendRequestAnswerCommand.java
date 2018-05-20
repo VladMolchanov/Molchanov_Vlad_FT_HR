@@ -11,6 +11,12 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.AN
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.ASPIRANT_EMAIL;
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.MESSAGE_THEME;
 
+/**
+ * Class {@link SendRequestAnswerCommand} is used for send answer message to aspirant.
+ *
+ * @author MolcanovVladislav
+ * @see ConcreteCommand
+ */
 public class SendRequestAnswerCommand implements ConcreteCommand {
     private static final SendRequestAnswerCommand SEND_REPLY_COMMAND = new SendRequestAnswerCommand();
     private static final ConcreteCommand FILL_VACANCY_COMMAND = FillContentCommand.getInstance();

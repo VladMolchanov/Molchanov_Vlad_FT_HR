@@ -7,6 +7,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Class {@link ConnectionPoolConfiguration} - wrapper class is used for read data about
+ * database configuration from property file.
+ *
+ * @author MolcanovVladislav
+ */
 class ConnectionPoolConfiguration {
     private static final ConnectionPoolConfiguration connectionPoolConfiguration = new ConnectionPoolConfiguration();
     private static final Logger LOGGER = LogManager.getLogger();

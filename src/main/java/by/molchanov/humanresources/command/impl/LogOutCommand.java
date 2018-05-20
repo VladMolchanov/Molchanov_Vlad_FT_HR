@@ -8,6 +8,12 @@ import by.molchanov.humanresources.executor.impl.LogOutExecutorImpl;
 
 import java.util.List;
 
+/**
+ * Class {@link LogOutCommand} is used for user logout from system.
+ *
+ * @author MolcanovVladislav
+ * @see ConcreteCommand
+ */
 public class LogOutCommand implements ConcreteCommand {
     private static final LogOutCommand LOG_OUT_COMMAND = new LogOutCommand();
     private static final LogOutExecutor LOG_OUT_EXECUTOR = LogOutExecutorImpl.getInstance();

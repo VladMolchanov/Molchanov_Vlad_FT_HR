@@ -12,6 +12,11 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * Class {@link ConnectionPool} is used for management database connection between users.
+ *
+ * @author MolchanovVladislav
+ */
 public class ConnectionPool {
     private static final Logger LOGGER = LogManager.getLogger();
     private static ConnectionPool connectionPool;

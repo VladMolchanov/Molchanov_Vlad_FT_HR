@@ -6,6 +6,12 @@ import by.molchanov.humanresources.exception.CustomBrokerException;
 import by.molchanov.humanresources.exception.CustomExecutorException;
 import by.molchanov.humanresources.executor.impl.SendMessageExecutorImpl;
 
+/**
+ * Class {@link EmptyCommand} is used for 'null' or empty command.
+ *
+ * @author MolcanovVladislav
+ * @see ConcreteCommand
+ */
 public class EmptyCommand implements ConcreteCommand {
     private static final EmptyCommand EMPTY_COMMAND = new EmptyCommand();
     private static final ConcreteCommand FILL_VACANCY_COMMAND = FillContentCommand.getInstance();

@@ -17,6 +17,12 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * Class {@link SendMessageExecutorImpl} used for sending message.
+ *
+ * @author MolcanovVladislav
+ * @see SendMessageExecutor
+ */
 public class SendMessageExecutorImpl implements SendMessageExecutor {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final SendMessageExecutorImpl SEND_MESSAGE_EXECUTOR = new SendMessageExecutorImpl();
