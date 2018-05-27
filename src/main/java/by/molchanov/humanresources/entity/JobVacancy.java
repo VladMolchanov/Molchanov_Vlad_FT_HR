@@ -43,14 +43,6 @@ public class JobVacancy implements Serializable {
         return res;
     };
 
-    public static Comparator<JobVacancy> COMPARE_BY_DATE = (o1, o2) -> {
-        int res = String.CASE_INSENSITIVE_ORDER.compare(o1.getUploadDate(), o2.getUploadDate());
-        if (res == 0) {
-            res = o1.getUploadDate().compareTo(o2.getUploadDate());
-        }
-        return res;
-    };
-
     public static Comparator<JobVacancy> COMPARE_BY_ORG_NAME = (o1, o2) -> {
         int res = String.CASE_INSENSITIVE_ORDER.compare(o1.getOrganization().getName(), o2.getOrganization().getName());
         if (res == 0) {

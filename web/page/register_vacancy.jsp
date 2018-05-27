@@ -19,10 +19,11 @@
 <form name="loginForm" method="POST" action="controller">
     <input class="form-control" type="hidden" name="command" value="vacancy_registration"/>
     <label for="vacancy-org-site"><fmt:message key="content.vacancy.name"/></label>
-    <input class="form-control" id="vacancy-org-site" type="text" name="vacancy_name" placeholder="Vacancy name*"/>
+    <input class="form-control" id="vacancy-org-site" type="text" name="vacancy_name" title="<fmt:message key="content.input.title.extended.name"/>"
+           placeholder="Vacancy name*" pattern="[-,.?!'()\wА-Яа-я\s]{1,45}"/>
     <label for="vacancy-org-description"><fmt:message key="content.vacancy.requirement"/></label>
     <textarea class="form-control" id="vacancy-org-description" name="vacancy_requirement" placeholder="Requirement*" required
-              rows="4" cols="50"></textarea><br/>
+              title="<fmt:message key="content.input.title.text"/>" rows="4" cols="50"></textarea><br/>
     <input type="submit" class="btn btn-primary" value="<fmt:message key="content.button.send"/>"/>
 </form>
 </body>

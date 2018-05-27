@@ -10,6 +10,7 @@ import java.util.GregorianCalendar;
  * Class {@link RoleTimeTag} used for display user role in system and current time.
  *
  * @author MolcanovVladislav
+ * @see TagSupport
  */
 public class RoleTimeTag extends TagSupport {
     private static final String DEFAULT_ROLE = "guest";

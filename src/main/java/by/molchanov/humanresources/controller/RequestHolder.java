@@ -24,7 +24,7 @@ public class RequestHolder {
     public RequestHolder(HttpServletRequest request) {
         Object retrievedObject;
         String retrievedName;
-        requestParameter = request.getParameterMap();
+        requestParameter = new HashMap<>(request.getParameterMap());
         HttpSession session = request.getSession();
         Enumeration<String> sessionAttributeNames = session.getAttributeNames();
         Enumeration<String> requestAttributeNames = request.getAttributeNames();
@@ -37,13 +37,15 @@ public class RequestHolder {
         Integer currentHash = PRIMARY_HASH;
         Integer hash = (Integer) session.getAttribute(HASH);
         for (Map.Entry<String, String[]> pair : requestParameter.entrySet()) {
-            currentHash = Arrays.hashCode(pair.getValue());
+            currentHash += pair.getValue()[0].hashCode();
+            currentHash += pair.getKey().hashCode();
         }
         if (hash == null) {
             session.setAttribute(HASH, PRIMARY_HASH);
         } else if (!currentHash.equals(hash)) {
             session.removeAttribute(HASH);
             session.setAttribute(HASH, currentHash);
+        } else {
             requestParameter.remove(COMMAND);
         }
         while (sessionAttributeNames.hasMoreElements()) {

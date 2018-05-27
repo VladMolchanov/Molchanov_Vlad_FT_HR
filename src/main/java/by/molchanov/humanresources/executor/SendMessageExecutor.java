@@ -1,5 +1,6 @@
 package by.molchanov.humanresources.executor;
 
+import by.molchanov.humanresources.dto.MessageDataDTO;
 import by.molchanov.humanresources.exception.CustomExecutorException;
 
 /**
@@ -10,10 +11,8 @@ import by.molchanov.humanresources.exception.CustomExecutorException;
 public interface SendMessageExecutor {
     /**
      * Send answer for aspirant request.
-     * @param messageTheme theme of message
-     * @param message text of message
-     * @param aspirantEmail aspirant email
+     * @param messageDataDTO object, which contains all data for message sending
      * @throws CustomExecutorException exception of service level
      */
-    void sendRequestAnswer(String messageTheme, String message, String aspirantEmail) throws CustomExecutorException;
+    void sendRequestAnswer(MessageDataDTO messageDataDTO) throws CustomExecutorException;
 }

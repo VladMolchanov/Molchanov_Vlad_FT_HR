@@ -2,9 +2,7 @@ package by.molchanov.humanresources.dao.impl;
 
 import by.molchanov.humanresources.dao.JobRequestDAO;
 import by.molchanov.humanresources.database.ConnectionPool;
-import by.molchanov.humanresources.entity.JobRequest;
-import by.molchanov.humanresources.entity.JobVacancy;
-import by.molchanov.humanresources.entity.User;
+import by.molchanov.humanresources.entity.*;
 import by.molchanov.humanresources.exception.CustomDAOException;
 
 import java.sql.Connection;
@@ -28,8 +26,6 @@ import static by.molchanov.humanresources.entity.JobRequestStatusType.*;
 public class JobRequestDAOImpl extends AbstractDAO<JobRequest> implements JobRequestDAO {
     private static final JobRequestDAOImpl JOB_REQUEST_DAO = new JobRequestDAOImpl();
 
-    private static final String DIRECTOR = "director";
-
     private JobRequestDAOImpl() {
 
     }
@@ -39,21 +35,20 @@ public class JobRequestDAOImpl extends AbstractDAO<JobRequest> implements JobReq
     }
 
     @Override
-    public List<JobRequest> findRequestByTypeRole(String userRole, int orgId) throws CustomDAOException {
+    public List<JobRequest> findRequestByTypeRole(JobRequestStatusType jobRequestStatusType, int orgId, String searchField,
+                                                  int startRequestNumber,
+                                                  int requestsQuantity) throws CustomDAOException {
         List<JobRequest> result = new ArrayList<>();
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
-        String sqlScript;
-        if (DIRECTOR.equals(userRole)) {
-            sqlScript = JOB_REQUEST_QUERY_SELECT_REQUEST_CONTENT_FOR_DIRECTOR;
-        } else {
-            return result;
-        }
         try {
             connection = connectionPool.takeConnection();
-            try (PreparedStatement statement = connection.prepareStatement(sqlScript)) {
-                statement.setString(1, ADDED.getValue());
+            try (PreparedStatement statement = connection.prepareStatement(JOB_REQUEST_QUERY_SELECT_REQUEST_CONTENT)) {
+                statement.setString(1, jobRequestStatusType.getValue());
                 statement.setInt(2, orgId);
+                statement.setString(3, "%" + searchField + "%");
+                statement.setInt(4, startRequestNumber);
+                statement.setInt(5, requestsQuantity);
                 try (ResultSet set = statement.executeQuery()) {
                     while (set.next()) {
                         JobRequest jobRequest = new JobRequest();
@@ -78,6 +73,33 @@ public class JobRequestDAOImpl extends AbstractDAO<JobRequest> implements JobReq
             }
         }
         return result;
+    }
+
+    @Override
+    public int getRequestsCount(JobRequestStatusType jobRequestStatusType, String searchField, int orgId) throws CustomDAOException {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = null;
+        int count = 0;
+        try {
+            connection = connectionPool.takeConnection();
+            try (PreparedStatement statement = connection.prepareStatement(JOB_REQUESTS_COUNT_SELECT)) {
+                statement.setString(1, jobRequestStatusType.getValue());
+                statement.setInt(2, orgId);
+                statement.setString(3, "%" + searchField + "%");
+                try (ResultSet set = statement.executeQuery()) {
+                    while (set.next()) {
+                        count = set.getInt(JOB_REQUESTS_COUNT);
+                    }
+                }
+            } catch (SQLException e) {
+                throw new CustomDAOException("SQL execute error!", e);
+            }
+        } finally {
+            if (connection != null) {
+                connectionPool.returnConnection(connection);
+            }
+        }
+        return count;
     }
 
     @Override

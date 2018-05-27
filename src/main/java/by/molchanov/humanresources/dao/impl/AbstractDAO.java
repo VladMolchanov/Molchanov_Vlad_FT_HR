@@ -124,7 +124,7 @@ public abstract class AbstractDAO<T> implements OverallDAO<T> {
                     throw new CustomDAOException("More than one element was deleted:" + numberOfUpdatedElements);
                 }
             } catch (SQLException e) {
-                throw new CustomDAOException(e);
+                throw new CustomDAOException("SQL eeror!", e);
             }
         } finally {
             if (connection != null) {

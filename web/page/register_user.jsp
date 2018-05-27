@@ -34,20 +34,19 @@
                     <div id="sign-up-as-user-form">
                         <input class="form-control" type="hidden" name="command" value="user_registration"/>
                         <br/><fmt:message key="content.user.first.name"/><br/>
-                        <input class="form-control" type="text" name="first_name" placeholder="name*"
-                               pattern="[A-ZА-Я][a-zа-я]{1,44}"/>
+                        <input class="form-control" type="text" name="first_name" title="<fmt:message key="content.input.title.name"/>" placeholder="name*" pattern="[A-ZА-Я][a-zа-я]{1,44}"/>
                         <br/><fmt:message key="content.user.last.name"/><br/>
-                        <input class="form-control" type="text" name="last_name" placeholder="surname*"
+                        <input class="form-control" type="text" name="last_name" placeholder="surname*" title="<fmt:message key="content.input.title.name"/>"
                                pattern="[A-ZА-Я][a-zа-я]{1,44}"/>
                         <br/><fmt:message key="content.user.email"/><br/>
-                        <input class="form-control" type="email" name="email" placeholder="default@example.com"
-                               pattern="([a-z0-9!#$%&'*+/=?^_`{|}~-]+(\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*)[@](([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*(aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z]))"
+                        <input class="form-control" type="email" name="email" placeholder="default@example.com" title="<fmt:message key="content.input.title.email"/>"
+                               pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*[@]([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*(aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])"
                                required/>
                         <br/><fmt:message key="content.user.password"/><br/>
-                        <input class="form-control" type="password" name="repeat_password" placeholder="password*"
+                        <input class="form-control" type="password" name="repeat_password" title="<fmt:message key="content.input.title.password"/>" placeholder="password*"
                                pattern="[\S]{1,45}" required/>
                         <br/><fmt:message key="content.user.repeat.password"/><br/>
-                        <input class="form-control" type="password" name="password" placeholder="password*"
+                        <input class="form-control" type="password" name="password" title="<fmt:message key="content.input.title.password"/>" placeholder="password*"
                                pattern="[\S]{1,45}" required/>
                         <br/>
                     </div>

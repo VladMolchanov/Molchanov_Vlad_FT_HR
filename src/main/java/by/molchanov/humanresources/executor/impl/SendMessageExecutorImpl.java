@@ -1,10 +1,13 @@
 package by.molchanov.humanresources.executor.impl;
 
+import by.molchanov.humanresources.dto.MessageDataDTO;
 import by.molchanov.humanresources.exception.CustomExecutorException;
 import by.molchanov.humanresources.executor.SendMessageExecutor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.Properties;
 
@@ -17,6 +20,11 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import static by.molchanov.humanresources.executor.PropertyMessageVariablesName.MESSAGE_CORRECT_SEND;
+import static by.molchanov.humanresources.executor.PropertyMessageVariablesName.MESSAGE_INCORRECT_FORMAT;
+import static by.molchanov.humanresources.validator.VacancyRequestDataValidation.isTextCorrect;
+import static by.molchanov.humanresources.validator.VacancyRequestDataValidation.isVacancyNameCorrect;
+
 /**
  * Class {@link SendMessageExecutorImpl} used for sending message.
  *
@@ -24,13 +32,32 @@ import javax.mail.internet.MimeMessage;
  * @see SendMessageExecutor
  */
 public class SendMessageExecutorImpl implements SendMessageExecutor {
-    private static final Logger LOGGER = LogManager.getLogger();
     private static final SendMessageExecutorImpl SEND_MESSAGE_EXECUTOR = new SendMessageExecutorImpl();
+    private static final Logger LOGGER = LogManager.getLogger();
 
-    private static final String SIGNATURE = "\n place for signature!!!";
+    private static final String SMTP_CONFIGURATION_FILE_NAME = "smtp_configuration.properties";
+    private static final String EMAIL_CONFIGURATION_FILE_NAME = "email_configuration.properties";
+    private String applicationEmail;
+    private String applicationEmailPass;
+    private Properties smtpProperties;
+
+    private static final String SIGNATURE = "\n\n #application#human#resources";
 
     private SendMessageExecutorImpl() {
-
+        smtpProperties = new Properties();
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(SMTP_CONFIGURATION_FILE_NAME)) {
+            smtpProperties.load(inputStream);
+        } catch (IOException e) {
+            LOGGER.error("Properties file opening error!", e);
+        }
+        Properties emailProperties = new Properties();
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(EMAIL_CONFIGURATION_FILE_NAME)) {
+            emailProperties.load(inputStream);
+            applicationEmail = emailProperties.getProperty("application.email");
+            applicationEmailPass = emailProperties.getProperty("application.email.pass");
+        } catch (IOException e) {
+            LOGGER.error("Properties file opening error!", e);
+        }
     }
 
     public static SendMessageExecutorImpl getInstance() {
@@ -38,76 +65,41 @@ public class SendMessageExecutorImpl implements SendMessageExecutor {
     }
 
     @Override
-    public void sendRequestAnswer(String messageTheme, String message, String aspirantEmail) throws CustomExecutorException {
-        message += SIGNATURE;
-        sendMessage(messageTheme, message, aspirantEmail);
+    public void sendRequestAnswer(MessageDataDTO messageDataDTO) throws CustomExecutorException {
+        String messageTheme = messageDataDTO.getMessageTheme();
+        String messageText = messageDataDTO.getMessageText();
+        String receiver = messageDataDTO.getReceiverEmail();
+        if (!isVacancyNameCorrect(messageTheme) || !isTextCorrect(messageText)){
+            messageDataDTO.setInfoMessage(MESSAGE_INCORRECT_FORMAT);
+        } else {
+            messageText += SIGNATURE;
+            sendMessage(messageTheme, messageText, receiver);
+            messageDataDTO.setInfoMessage(MESSAGE_CORRECT_SEND);
+        }
     }
 
-    public void sendMessage(String messageTheme, String message, String receiver) throws CustomExecutorException {
-//        Properties properties = new Properties();
-//        properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-//        properties.put("mail.smtp.host", "smtp.gmail.com");
-//        properties.put("mail.smtp.port", "465");
-//        properties.put("mail.smtp.auth", "true");
-//        properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-//        properties.put("mail.smtp.debug", "true");
+    private void sendMessage(String messageTheme, String message, String receiver) throws CustomExecutorException {
 
-//         creates a new session with an authenticator
-//        Authenticator auth = new Authenticator() {
-//            @Override
-//            public PasswordAuthentication getPasswordAuthentication() {
-//                return new PasswordAuthentication("vladd1997xx@gmail.com", "3129093529q");
-//            }
-//        };
-//
-//
-//        Session session = Session.getInstance(properties, auth);
-//        // creates a new e-mail message
-//        Message msg = new MimeMessage(session);
-//        try {
-//            msg.setFrom(new InternetAddress("vladd1997xx@gmail.com"));
-//            msg.setRecipient(Message.RecipientType.TO, new InternetAddress(receiver) );
-//            msg.setSubject(messageTheme);
-//            msg.setContent(message, "text/html;charset=UTF-8");
-//            "text/html;charset=UTF-8"
-//            Transport.send(msg);
-//        } catch (MessagingException e) {
-//            LOGGER.info(e);
-//            throw new CustomExecutorException(e);
-//        }
+        Authenticator auth = new Authenticator() {
+            @Override
+            public PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(applicationEmail, applicationEmailPass);
+            }
+        };
 
-//        Properties props = new Properties();
-//        props.put("mail.smtp.host", "smtp.gmail.com");
-//        props.put("mail.smtp.socketFactory.port", "465");
-//        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-//        props.put("mail.smtp.auth", "true");
-//        props.put("mail.smtp.port", "465");
-//        props.put("mail.smtp.debug", "true");
-//        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-//
-//        Session session = Session.getInstance(props, new Authenticator() {
-//            protected PasswordAuthentication getPasswordAuthentication() {
-//                return new PasswordAuthentication("vladd1997xx@gmail.com", "3129093529q");
-//            }
-//        });
-//
-//        try {
-//            Message messag = new MimeMessage(session);
-//            //от кого
-//            messag.setFrom(new InternetAddress("vladd1997xx@gmail.com"));
-//            //кому
-//            messag.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiver));
-//            //Заголовок письма
-//            messag.setSubject(messageTheme);
-//            //Содержимое
-//            messag.setText(message);
-//
-//            //Отправляем сообщение
-//            Transport.send(messag);
-//        } catch (MessagingException e) {
-//            throw new RuntimeException(e);
-//        }
+        Session session = Session.getInstance(smtpProperties, auth);
 
-//        return 1;
+        try {
+            Message msg = new MimeMessage(session);
+            msg.setFrom(new InternetAddress(applicationEmail));
+            InternetAddress[] toAddresses = { new InternetAddress(receiver) };
+            msg.setRecipients(Message.RecipientType.TO, toAddresses);
+            msg.setSubject(messageTheme);
+            msg.setSentDate(new Date());
+            msg.setText(message);
+            Transport.send(msg);
+        } catch (MessagingException e) {
+            throw new CustomExecutorException("Send message error!", e);
+        }
     }
 }

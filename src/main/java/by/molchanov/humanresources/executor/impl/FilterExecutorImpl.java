@@ -1,5 +1,6 @@
 package by.molchanov.humanresources.executor.impl;
 
+import by.molchanov.humanresources.dto.FilterDataDTO;
 import by.molchanov.humanresources.entity.JobRequest;
 import by.molchanov.humanresources.entity.JobVacancy;
 import by.molchanov.humanresources.exception.CustomExecutorException;
@@ -11,7 +12,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import static by.molchanov.humanresources.entity.JobVacancy.COMPARE_BY_DATE;
 import static by.molchanov.humanresources.entity.JobVacancy.COMPARE_BY_NAME;
 import static by.molchanov.humanresources.entity.JobVacancy.COMPARE_BY_ORG_NAME;
 
@@ -41,25 +41,28 @@ public class FilterExecutorImpl implements FilterExecutor {
     }
 
     @Override
-    public List<JobVacancy> filterVacancy(String sortColumn, String sortDirectionType, String searchField, String userRole) throws CustomExecutorException {
+    public List<JobVacancy> filterVacancy(FilterDataDTO filterDataDTO, String userRole, int startVacancyNumber,
+                                          int vacanciesQuantity) throws CustomExecutorException {
+        String sortDirectionType = filterDataDTO.getSortDirectionType();
+        String sortColumn = filterDataDTO.getSortColumn();
+        String searchField = filterDataDTO.getSearchField();
         boolean sortDirectionTypeFlag = setSortDirectionTypeFlag(sortDirectionType);
         ColumnForSortingType sortingColumnType = ColumnForSortingType.valueOf(sortColumn.toUpperCase());
-        List<JobVacancy> vacancies = FILL_CONTENT_EXECUTOR.fillVacancy(userRole);
-        if (!searchField.isEmpty()) {
-            vacancies.removeIf(vacancy -> !vacancy.getName().toLowerCase().contains(searchField.toLowerCase()));
-        }
+        List<JobVacancy> vacancies = FILL_CONTENT_EXECUTOR.fillVacancy(userRole, searchField, startVacancyNumber, vacanciesQuantity);
         executeVacancySort(sortingColumnType, vacancies, sortDirectionTypeFlag);
         return vacancies;
     }
 
     @Override
-    public List<JobRequest> filterRequest(String sortColumn, String sortDirectionType, String searchField, String userRole, int orgId) throws CustomExecutorException {
+    public List<JobRequest> filterRequest(FilterDataDTO filterDataDTO, String userRole,
+                                          int startRequestNumber, int requestsQuantity) throws CustomExecutorException {
+        String sortDirectionType = filterDataDTO.getSortDirectionType();
+        String sortColumn = filterDataDTO.getSortColumn();
+        String searchField = filterDataDTO.getSearchField();
+        int orgId = filterDataDTO.getOrgId();
         boolean sortDirectionTypeFlag = setSortDirectionTypeFlag(sortDirectionType);
         ColumnForSortingType sortingColumnType = ColumnForSortingType.valueOf(sortColumn.toUpperCase());
-        List<JobRequest> requests = FILL_CONTENT_EXECUTOR.fillRequest(userRole, orgId);
-        if (!searchField.isEmpty()) {
-            requests.removeIf(vacancy -> !vacancy.getJobVacancy().getName().toLowerCase().contains(searchField.toLowerCase()));
-        }
+        List<JobRequest> requests = FILL_CONTENT_EXECUTOR.fillRequest(userRole, orgId, searchField , startRequestNumber, requestsQuantity);
         executeRequestSort(sortingColumnType, requests, sortDirectionTypeFlag);
         return requests;
     }
@@ -84,9 +87,6 @@ public class FilterExecutorImpl implements FilterExecutor {
 
     private void executeVacancySort(ColumnForSortingType sortingColumnType, List<JobVacancy> vacancies, boolean sortDirectionTypeFlag) throws CustomExecutorException {
         switch (sortingColumnType) {
-            case SORT_BY_DATE:
-                sorter(COMPARE_BY_DATE, vacancies, sortDirectionTypeFlag);
-                break;
             case SORT_BY_VAC_NAME:
                 sorter(COMPARE_BY_NAME, vacancies, sortDirectionTypeFlag);
                 break;

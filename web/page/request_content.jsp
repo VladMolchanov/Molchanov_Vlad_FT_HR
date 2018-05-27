@@ -9,6 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="ctg" uri="customtags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="content"/>
@@ -39,7 +40,7 @@
         <div class="col-5">
             <label for="request-searchInput"><fmt:message key="content.search"/></label>
             <input class="form-control " id="request-searchInput" type="text" name="search_field"
-                   placeholder="<fmt:message key="content.search"/>"/>
+                   placeholder="<fmt:message key="content.search"/>" pattern="[-,.?!'()\wА-Яа-я\s]{1,45}"/>
         </div>
         <div class="col-1">
             <label for="request-searchButton">&#160;</label>
@@ -90,7 +91,7 @@
 
                                     <br/><fmt:message key="content.message.theme"/><br/>
                                     <input class="form-control" type="text" name="message_theme"
-                                           placeholder="theme*"/>
+                                           placeholder="theme*" pattern="[-,.?!'()\wА-Яа-я\s]{1,45}"/>
                                     <label for="request-${request.id}-message"><fmt:message key="content.message.text"/></label>
                                     <textarea class="form-control"
                                               id="request-${request.id}-org-description" name="answer_message"
@@ -123,13 +124,111 @@
     </c:forEach>
     </tbody>
 </table>
-<ul class="pagination text-center">
-    <li class="page-item">
-        <button class="page-link disabled" disabled><fmt:message key="content.next.page"/></button>
-    </li>
-    <li class="page-item">
-        <button class="page-link"><fmt:message key="content.previous.page"/></button>
-    </li>
-</ul>
+<div class="mainPagePagination">
+    <c:set var="start" value="${requestScope.start_request_number}"/>
+    <c:set var="step" value="${requestScope.requests_quantity}"/>
+    <c:set var="count" value="${requestScope.requests_count}"/>
+    <c:set var="size" value="${fn:length(requestScope.request_list)}"/>
+    <c:set var="maxPage"/>
+    <c:choose>
+        <c:when test="${count / step > 1}">
+            <fmt:parseNumber var="maxPage" type="number" value="${count / step + 1}"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="maxPage" value="${1}"/>
+        </c:otherwise>
+    </c:choose>
+
+    <div id="pageInfo">
+        <c:choose>
+            <c:when test="${size != 0}">
+                ${start + 1}
+            </c:when>
+            <c:otherwise>
+                ${0}
+            </c:otherwise>
+        </c:choose>
+        ${" - "}${start + size}${" "}
+        из
+        ${" "}${count}</div>
+    ${"  "}<br>
+    Страница${" "}
+    <ul class="pagination text-center">
+        <c:if test="${start != 0}">
+            <li class="page-item">
+                <div class="page-link"><a
+                        href="/controller?command=fill_content&start_request_number=${start - step}&requests_quantity=${step}">
+                    Предыдущая</a></div>
+            </li>
+        </c:if>
+        <c:forEach var="i" begin="0" end="4">
+            <c:if test="${((start + step) / step + i - 2) > 0 && ((start + step) / step + i - 2) <= maxPage}">
+                <c:choose>
+                    <c:when test="${i != 2}">
+                        <fmt:parseNumber var="page" type="number" value="${(start + step) / step + i - 2}"/>
+                        <li class="page-item">
+                            <div class="page-link">
+                                <a href="/controller?command=fill_content&start_request_number=${start + step * (i - 2)}&requests_quantity=${step}">
+                                        ${page}</a>
+                            </div>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <fmt:parseNumber var="presentPage" type="number" value="${(start + step) / step}"/>
+                        <li class="page-item disabled">
+                            <div class="page-link" style="color: black">
+                                    ${presentPage}${" "}
+                            </div>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+            </c:if>
+        </c:forEach>
+        <c:if test="${(count - start) gt step}">
+            <li class="page-item">
+                <div class="page-link"><a
+                        href="/controller?command=fill_content&start_vacancy_number=${start + step}&vacancies_quantity=${step}">
+                    Следующая</a></div>
+            </li>
+        </c:if>
+    </ul>
+    <div class="rowNumber">
+        Показывать${" "}
+        <ul class="pagination text-center">
+            <c:choose>
+                <c:when test="${step == 10}">
+                    <li class="page-item disabled">
+                        <div class="page-link" style="color: black">
+                            10${" "}
+                        </div>
+                    </li>
+                </c:when>
+                <c:otherwise>
+                    <li class="page-item">
+                        <div class="page-link">
+                            <a href="/controller?command=fill_vacancy&start_vacancy_number=0&vacancies_quantity=10">10</a>${" "}
+                        </div>
+                    </li>
+                </c:otherwise>
+            </c:choose>
+            <c:choose>
+                <c:when test="${step == 20}">
+                    <li class="page-item disabled">
+                        <div class="page-link" style="color: black">
+                            20${" "}
+                        </div>
+                    </li>
+                </c:when>
+                <c:otherwise>
+                    <li class="page-item">
+                        <div class="page-link">
+                            <a href="/controller?command=fill_vacancy&start_vacancy_number=0&vacancies_quantity=20">20</a>${" "}
+                        </div>
+                    </li>
+                </c:otherwise>
+            </c:choose>
+        </ul>
+    </div>
+</div>
 </body>
 </html>

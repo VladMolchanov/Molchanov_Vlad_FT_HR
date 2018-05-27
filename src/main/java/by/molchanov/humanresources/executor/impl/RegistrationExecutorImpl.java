@@ -130,7 +130,7 @@ public class RegistrationExecutorImpl implements RegistrationExecutor {
         String infoMessage = VACANCY_SUCCESSFUL_REGISTRATION;
         if (!isVacancyNameCorrect(vacancyName)) {
             infoMessage = VACANCY_INCORRECT_NAME;
-        } else if (!isRequirementCorrect(vacancyRequirement)) {
+        } else if (!isTextCorrect(vacancyRequirement)) {
             infoMessage = VACANCY_INCORRECT_REQUIREMENT;
         } else {
             JobVacancyStatusType statusType = JobVacancyStatusType.NEW;
@@ -149,7 +149,7 @@ public class RegistrationExecutorImpl implements RegistrationExecutor {
         String resume = jobRequestDataDTO.getJobRequest().getResume();
         JobRequest jobRequest = jobRequestDataDTO.getJobRequest();
         String infoMessage = USER_SUCCESSFUL_REGISTRATION;
-        if (!isResumeCorrect(resume)) {
+        if (!isTextCorrect(resume)) {
             infoMessage = REQUEST_INCORRECT_RESUME;
         } else {
             JobRequestStatusType status = JobRequestStatusType.ADDED;

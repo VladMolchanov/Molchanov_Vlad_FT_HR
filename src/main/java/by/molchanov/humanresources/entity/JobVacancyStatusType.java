@@ -6,7 +6,7 @@ package by.molchanov.humanresources.entity;
  * @author MolcanovVladislav
  */
 public enum JobVacancyStatusType {
-    OPEN("close"), CLOSE("open"), NEW("new");
+    OPEN("open"), CLOSE("close"), NEW("new");
 
     private String value;
 

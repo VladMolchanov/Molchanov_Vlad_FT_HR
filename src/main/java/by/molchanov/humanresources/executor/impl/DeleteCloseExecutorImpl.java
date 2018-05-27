@@ -93,7 +93,7 @@ public class DeleteCloseExecutorImpl implements DeleteCloseExecutor {
                 days =  (int)(difference / (24 * 60 * 60 * 1000));
                 if (days > MAX_AVAILABLE_DURATION) {
                     bufJobVacancy = vacancy;
-                    vacancy.setStatus(JobVacancyStatusType.CLOSE);
+                    bufJobVacancy.setStatus(JobVacancyStatusType.CLOSE);
                     JOB_VACANCY_DAO.update(bufJobVacancy);
                 }
             }

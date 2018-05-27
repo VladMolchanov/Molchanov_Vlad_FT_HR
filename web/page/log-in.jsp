@@ -33,9 +33,9 @@
                 <div class="modal-body ">
                     <input class="form-control " type="hidden" name="command" value="authentication"/>
                     <br/><fmt:message key="content.user.email"/><br/>
-                    <input class="form-control " type="email" name="email" value="" placeholder="default@example.com"/>
+                    <input class="form-control " type="email" name="email" value="" title="<fmt:message key="content.input.title.email"/>" placeholder="default@example.com" pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*[@]([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*(aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])" required/>
                     <br/><fmt:message key="content.user.password"/><br/>
-                    <input class="form-control " type="password" name="password" value="" placeholder="password"/>
+                    <input class="form-control " type="password" name="password" value="" title="<fmt:message key="content.input.title.password"/>" placeholder="password" pattern="[\S]{1,45}" required/>
                     <br/>
                 </div>
 

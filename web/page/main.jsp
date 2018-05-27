@@ -54,7 +54,7 @@
 
         <div class="container ">
             <div class="row">
-                <div class="col-8">
+                <div class="col-2">
                     <nav>
                         <ul class="nav nav-pills ">
                             <li class="nav-item">
@@ -78,7 +78,7 @@
                                     <fmt:message key="content.button.user.sign.up"/>
                                 </button>
                             </c:when>
-                            <c:when test="${sessionScope.role!= null}">
+                            <c:otherwise>
                                 <button class="btn btn-dark " data-toggle="modal" data-target="#user-profile-modal">
                                     <fmt:message key="content.button.user.profile"/>
                                 </button>
@@ -88,7 +88,7 @@
                                         <fmt:message key="content.button.user.log.out"/>
                                     </button>
                                 </a>
-                            </c:when>
+                            </c:otherwise>
                         </c:choose>
                         <div class="dropdown btn">
                             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">

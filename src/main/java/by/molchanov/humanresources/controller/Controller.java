@@ -45,6 +45,7 @@ public class Controller extends HttpServlet {
         OperationFactory operationFactory = OperationFactory.getInstance();
         RequestHolder requestHolder = new RequestHolder(request);
         String requestCommand = requestHolder.getSingleRequestParameter(FIRST_INDEX, COMMAND);
+        System.out.println(requestCommand);
         ConcreteCommand command = operationFactory.getConcreteCommand(requestCommand);
         ResponseType responseType = operationFactory.getResponseType(requestCommand);
         try {
@@ -52,7 +53,7 @@ public class Controller extends HttpServlet {
             requestHolder.update(request);
         } catch (CustomBrokerException e) {
             LOGGER.warn(e.getMessage(), e);
-            responseType = ResponseType.REDIRECT;
+            throw new IOException(e);
         }
         switch (responseType) {
             case FORWARD:

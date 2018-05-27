@@ -9,8 +9,8 @@ import java.util.regex.Pattern;
  * @author MolcanovVladislav
  */
 public class VacancyRequestDataValidation {
-    private static final String REGEX_REQUIREMENT = "^[-,.?!'\"()\\wА-Яа-я\\s]{1,3000}$";
-    private static final String REGEX_VACANCY_NAME = "^[-,.?!'\"()\\wА-Яа-я\\s]{1,45}$";
+    private static final String REGEX_TEXT = "^[-,.?!'\"():;\\wА-Яа-я\\s]{1,3000}$";
+    private static final String REGEX_VACANCY_NAME = "^[-,.?!'()\\wА-Яа-я\\s]{1,45}$";
 
     private VacancyRequestDataValidation() {}
 
@@ -20,15 +20,9 @@ public class VacancyRequestDataValidation {
         return matcher.matches();
     }
 
-    public static boolean isRequirementCorrect(String requirement) {
-        Pattern pattern = Pattern.compile(REGEX_REQUIREMENT);
-        Matcher matcher = pattern.matcher(requirement);
-        return matcher.matches();
-    }
-
-    public static boolean isResumeCorrect(String requirement) {
-        Pattern pattern = Pattern.compile(REGEX_REQUIREMENT);
-        Matcher matcher = pattern.matcher(requirement);
+    public static boolean isTextCorrect(String text) {
+        Pattern pattern = Pattern.compile(REGEX_TEXT);
+        Matcher matcher = pattern.matcher(text);
         return matcher.matches();
     }
 }

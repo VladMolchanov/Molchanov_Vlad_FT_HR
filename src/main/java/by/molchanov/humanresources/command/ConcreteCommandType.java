@@ -203,6 +203,28 @@ public enum ConcreteCommandType {
         public ResponseType getResponseType() {
             return FORWARD;
         }
+    },
+    CLOSE_OLD_VACANCY {
+        @Override
+        public ConcreteCommand getConcreteCommandBroker() {
+            return CloseOldVacancyCommand.getInstance();
+        }
+
+        @Override
+        public ResponseType getResponseType() {
+            return FORWARD;
+        }
+    },
+    FILL_CONTENT {
+        @Override
+        public ConcreteCommand getConcreteCommandBroker() {
+            return FillContentCommand.getInstance();
+        }
+
+        @Override
+        public ResponseType getResponseType() {
+            return FORWARD;
+        }
     };
 
     public abstract ConcreteCommand getConcreteCommandBroker();

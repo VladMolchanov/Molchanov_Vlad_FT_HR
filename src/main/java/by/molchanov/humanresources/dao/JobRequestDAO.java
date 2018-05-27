@@ -1,6 +1,7 @@
 package by.molchanov.humanresources.dao;
 
 import by.molchanov.humanresources.entity.JobRequest;
+import by.molchanov.humanresources.entity.JobRequestStatusType;
 import by.molchanov.humanresources.exception.CustomDAOException;
 
 import java.util.List;
@@ -12,5 +13,8 @@ import java.util.List;
  * @author MolchanovVladislav
  */
 public interface JobRequestDAO extends OverallDAO<JobRequest> {
-    List<JobRequest> findRequestByTypeRole(String userRole, int orgId) throws CustomDAOException;
+    List<JobRequest> findRequestByTypeRole(JobRequestStatusType jobRequestStatusType, int orgId, String searchField,
+                                           int startRequestNumber,
+                                           int requestsQuantity) throws CustomDAOException;
+    int getRequestsCount(JobRequestStatusType jobRequestStatusType, String searchField, int orgId) throws CustomDAOException;
 }

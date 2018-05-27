@@ -6,6 +6,8 @@ import by.molchanov.humanresources.exception.CustomBrokerException;
 import by.molchanov.humanresources.exception.CustomExecutorException;
 import by.molchanov.humanresources.executor.impl.SendMessageExecutorImpl;
 
+import static by.molchanov.humanresources.command.SessionRequestAttributeName.COMMAND;
+
 /**
  * Class {@link EmptyCommand} is used for 'null' or empty command.
  *
@@ -26,6 +28,7 @@ public class EmptyCommand implements ConcreteCommand {
 
     @Override
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
+        requestHolder.addRequestAttribute(COMMAND, "fill_vacancy");
         FILL_VACANCY_COMMAND.execute(requestHolder);
     }
 }
