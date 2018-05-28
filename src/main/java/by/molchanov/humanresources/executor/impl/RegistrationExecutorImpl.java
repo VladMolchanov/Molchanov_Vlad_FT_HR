@@ -68,14 +68,14 @@ public class RegistrationExecutorImpl implements RegistrationExecutor {
                     break;
                 }
             }
-            if (!isEmailAddressCorrect(email)) {
+            if (!freeAddress) {
+                infoMessage = USER_REGISTRATION_NOT_AVAILABLE_EMAIL_ADDRESS;
+            } else if (!isEmailAddressCorrect(email)) {
                 infoMessage = USER_REGISTRATION_INCORRECT_EMAIL;
             } else if (!isUserNameCorrect(firstName) && isUserNameCorrect(lastName)) {
                 infoMessage = USER_REGISTRATION_INCORRECT_NAME_SURNAME;
             } else if (!isUserPasswordCorrect(password)) {
                 infoMessage = USER_REGISTRATION_INCORRECT_PASS;
-            } else if (!freeAddress) {
-                infoMessage = USER_REGISTRATION_NOT_AVAILABLE_EMAIL_ADDRESS;
             } else if (!password.equals(repeatPass)) {
                 infoMessage = USER_REGISTRATION_NOT_SAME_PASS;
             } else {

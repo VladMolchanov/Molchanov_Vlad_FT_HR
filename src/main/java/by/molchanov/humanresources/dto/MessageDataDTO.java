@@ -5,6 +5,7 @@ public class MessageDataDTO {
     private String messageTheme;
     private String receiverEmail;
     private String infoMessage;
+    private String vacancyName;
 
     public String getMessageText() {
         return messageText;
@@ -36,5 +37,13 @@ public class MessageDataDTO {
 
     public void setInfoMessage(String infoMessage) {
         this.infoMessage = infoMessage;
+    }
+
+    public String getVacancyName() {
+        return vacancyName;
+    }
+
+    public void setVacancyName(String vacancyName) {
+        this.vacancyName = vacancyName;
     }
 }

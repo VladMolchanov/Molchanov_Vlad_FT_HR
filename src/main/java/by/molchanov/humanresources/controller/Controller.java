@@ -22,7 +22,6 @@ public class Controller extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger();
 
     private static final String MAIN_PAGE = AddressPageConfiguration.getInstance().getMainPageAddress();
-    private static final String ERROR_PAGE = AddressPageConfiguration.getInstance().getErrorPageAddress();
 
     private static final int FIRST_INDEX = 0;
 
@@ -45,7 +44,6 @@ public class Controller extends HttpServlet {
         OperationFactory operationFactory = OperationFactory.getInstance();
         RequestHolder requestHolder = new RequestHolder(request);
         String requestCommand = requestHolder.getSingleRequestParameter(FIRST_INDEX, COMMAND);
-        System.out.println(requestCommand);
         ConcreteCommand command = operationFactory.getConcreteCommand(requestCommand);
         ResponseType responseType = operationFactory.getResponseType(requestCommand);
         try {
@@ -55,15 +53,11 @@ public class Controller extends HttpServlet {
             LOGGER.warn(e.getMessage(), e);
             throw new IOException(e);
         }
-        switch (responseType) {
-            case FORWARD:
-                getServletContext().getRequestDispatcher(MAIN_PAGE).forward(request, response);
-                break;
-            case REDIRECT:
-                response.sendRedirect(request.getContextPath() + ERROR_PAGE);
-                break;
-            default:
-                response.sendRedirect(request.getContextPath() + ERROR_PAGE);
+        if (responseType == ResponseType.FORWARD) {
+            getServletContext().getRequestDispatcher(MAIN_PAGE).forward(request, response);
+        } else if (responseType == ResponseType.REDIRECT) {
+            response.sendRedirect(MAIN_PAGE);
+
         }
     }
 }

@@ -2,12 +2,11 @@ package by.molchanov.humanresources.executor.impl;
 
 import by.molchanov.humanresources.dao.JobRequestDAO;
 import by.molchanov.humanresources.dao.JobVacancyDAO;
+import by.molchanov.humanresources.dao.UserDAO;
 import by.molchanov.humanresources.dao.impl.JobRequestDAOImpl;
 import by.molchanov.humanresources.dao.impl.JobVacancyDAOImpl;
-import by.molchanov.humanresources.entity.JobRequest;
-import by.molchanov.humanresources.entity.JobRequestStatusType;
-import by.molchanov.humanresources.entity.JobVacancy;
-import by.molchanov.humanresources.entity.JobVacancyStatusType;
+import by.molchanov.humanresources.dao.impl.UserDAOImpl;
+import by.molchanov.humanresources.entity.*;
 import by.molchanov.humanresources.exception.CustomDAOException;
 import by.molchanov.humanresources.exception.CustomExecutorException;
 import by.molchanov.humanresources.executor.ConfirmExecutor;
@@ -23,34 +22,57 @@ import java.util.List;
 public class ConfirmExecutorImpl implements ConfirmExecutor {
     private static final ConfirmExecutorImpl CONFIRM_EXECUTOR = new ConfirmExecutorImpl();
 
-    private static final JobVacancyDAO JOB_VACANCY_DAO = JobVacancyDAOImpl.getInstance();
-    private static final JobRequestDAO JOB_REQUEST_DAO = JobRequestDAOImpl.getInstance();
+    private JobVacancyDAO jobVacancyDAO = JobVacancyDAOImpl.getInstance();
+    private JobRequestDAO jobRequestDAO = JobRequestDAOImpl.getInstance();
+    private UserDAO userDAO = UserDAOImpl.getInstance();
 
     public static ConfirmExecutorImpl getInstance() {
         return CONFIRM_EXECUTOR;
+    }
+
+    private ConfirmExecutorImpl() {
+
     }
 
     @Override
     public void confirmVacancy(String vacancyId) throws CustomExecutorException {
         int id = Integer.parseInt(vacancyId);
         try {
-            JobVacancy jobVacancy = JOB_VACANCY_DAO.findById(id);
+            JobVacancy jobVacancy = jobVacancyDAO.findById(id);
             jobVacancy.setStatus(JobVacancyStatusType.OPEN);
-            JOB_VACANCY_DAO.update(jobVacancy);
+            jobVacancyDAO.update(jobVacancy);
         } catch (CustomDAOException e) {
             throw new CustomExecutorException(e);
         }
     }
 
     @Override
-    public void confirmRequest(String requestId) throws CustomExecutorException {
+    public void approveRequest(String requestId) throws CustomExecutorException {
+        JobRequest jobRequest;
         int id = Integer.parseInt(requestId);
         try {
-            JobRequest jobRequest = JOB_REQUEST_DAO.findById(id);
-            jobRequest.setStatus(JobRequestStatusType.ADDED);
-            JOB_REQUEST_DAO.update(jobRequest);
+            jobRequest = jobRequestDAO.findById(id);
+            jobRequest.setStatus(JobRequestStatusType.APPROVED);
+            jobRequestDAO.update(jobRequest);
         } catch (CustomDAOException e) {
             throw new CustomExecutorException(e);
         }
     }
+
+    @Override
+    public void riseToAdmin(List<String> usersId) throws CustomExecutorException {
+        User user;
+        int id;
+        for (String userId: usersId) {
+            id = Integer.parseInt(userId);
+            try {
+                user = userDAO.findById(id);
+                user.setRole(UserStatusType.ADMIN);
+                userDAO.update(user);
+            } catch (CustomDAOException e) {
+                throw new CustomExecutorException(e);
+            }
+        }
+    }
+
 }

@@ -3,7 +3,7 @@ package by.molchanov.humanresources.factory;
 import by.molchanov.humanresources.command.ConcreteCommandType;
 import by.molchanov.humanresources.command.ConcreteCommand;
 import by.molchanov.humanresources.command.ResponseType;
-import by.molchanov.humanresources.command.impl.EmptyCommand;
+import by.molchanov.humanresources.command.common.EmptyCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

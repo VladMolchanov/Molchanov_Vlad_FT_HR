@@ -11,6 +11,7 @@ public class UserDataDTO {
     private User userExemplar;
     private String infoMessage;
     private String repeatPassword;
+    private String altEmail;
 
     public User getUserExemplar() {
         return userExemplar;
@@ -34,5 +35,13 @@ public class UserDataDTO {
 
     public void setRepeatPassword(String repeatPassword) {
         this.repeatPassword = repeatPassword;
+    }
+
+    public String getAltEmail() {
+        return altEmail;
+    }
+
+    public void setAltEmail(String altEmail) {
+        this.altEmail = altEmail;
     }
 }

@@ -26,8 +26,8 @@ import static by.molchanov.humanresources.executor.PropertyMessageVariablesName.
 public class AuthenticationExecutorImpl implements AuthenticationExecutor {
     private static final AuthenticationExecutorImpl AUTHENTICATION_EXECUTOR = new AuthenticationExecutorImpl();
 
-    private static final UserDAO USER_DAO = UserDAOImpl.getInstance();
-    private static final OrganizationDAO ORGANIZATION_DAO = OrganizationDAOImpl.getInstance();
+    private UserDAO userDAO = UserDAOImpl.getInstance();
+    private OrganizationDAO organizationDAO = OrganizationDAOImpl.getInstance();
 
     private static final int PERMISSIBLE_VALUE = 1;
     private static final int FIRST_POSITION = 0;
@@ -48,12 +48,12 @@ public class AuthenticationExecutorImpl implements AuthenticationExecutor {
         AESEncryption encryption = new AESEncryption();
         password = encryption.encryptionOfString(password);
         try {
-            List<User> users = USER_DAO.findUsersByEmailAndPassword(email, password);
+            List<User> users = userDAO.findUsersByEmailAndPassword(email, password);
             if (users.size() == PERMISSIBLE_VALUE) {
                 User user = users.get(FIRST_POSITION);
                 userDataDTO.setUserExemplar(user);
                 if (user.getOrganization().getId() != EMPTY_ORG_ID) {
-                    Organization organization = ORGANIZATION_DAO.findById(user.getOrganization().getId());
+                    Organization organization = organizationDAO.findById(user.getOrganization().getId());
                     userDataDTO.getUserExemplar().setOrganization(organization);
                 }
             } else {

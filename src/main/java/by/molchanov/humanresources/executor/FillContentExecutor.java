@@ -1,8 +1,6 @@
 package by.molchanov.humanresources.executor;
 
-import by.molchanov.humanresources.entity.JobRequest;
-import by.molchanov.humanresources.entity.JobVacancy;
-import by.molchanov.humanresources.entity.JobVacancyStatusType;
+import by.molchanov.humanresources.entity.*;
 import by.molchanov.humanresources.exception.CustomDAOException;
 import by.molchanov.humanresources.exception.CustomExecutorException;
 
@@ -32,7 +30,15 @@ public interface FillContentExecutor {
     List<JobRequest> fillRequest(String userRole, int organizationId, String searchField,
                                  int startRequestNumber, int requestsQuantity) throws CustomExecutorException;
 
+    List<User> fillUser(String userRole, int startUserNumber, int usersQuantity) throws CustomExecutorException;
+
+    List<Organization> fillOrganization(int startOrganizationNumber, int organizationsQuantity) throws CustomExecutorException;
+
     int findVacanciesCount(String userRole, String searchField) throws CustomExecutorException;
 
     int findRequestsCount(String userRole, int orgId, String searchField) throws CustomExecutorException;
+
+    int findUsersCount(String userRole) throws CustomExecutorException;
+
+    int findOrganizationsCount() throws CustomExecutorException;
 }

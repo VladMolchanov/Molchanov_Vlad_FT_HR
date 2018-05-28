@@ -18,5 +18,5 @@ public interface JobVacancyDAO extends OverallDAO<JobVacancy> {
                                            int startVacancyNumber,
                                            int vacanciesQuantity) throws CustomDAOException;
 
-    int getVacanciesCount(JobVacancyStatusType jobVacancyStatusType, String searchField) throws CustomDAOException;
+    int findVacanciesCount(JobVacancyStatusType jobVacancyStatusType, String searchField) throws CustomDAOException;
 }

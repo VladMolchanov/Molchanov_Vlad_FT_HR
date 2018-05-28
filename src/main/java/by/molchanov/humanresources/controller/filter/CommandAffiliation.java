@@ -16,6 +16,7 @@ public class CommandAffiliation {
         String establishBelorussianLocaleCommand = "est_belorussian_locale";
         String establishEnglishLocaleCommand = "est_english_locale";
         String logOutCommand = "log_out";
+        String editUser = "edit_user";
         guestCommand = new HashSet<>();
         adminCommand = new HashSet<>();
         aspirantCommand = new HashSet<>();
@@ -35,6 +36,7 @@ public class CommandAffiliation {
         aspirantCommand.add(logOutCommand);
         aspirantCommand.add("request_registration");
         aspirantCommand.add(establishRussianLocaleCommand);
+        aspirantCommand.add(editUser);
         directorCommand.add(vacFilterCommand);
         directorCommand.add(contentCommand);
         directorCommand.add(establishRussianLocaleCommand);
@@ -45,7 +47,9 @@ public class CommandAffiliation {
         directorCommand.add("close_request");
         directorCommand.add("send_request_answer");
         directorCommand.add("close_vacancy");
+        directorCommand.add("edit_vacancy");
         directorCommand.add(logOutCommand);
+        directorCommand.add(editUser);
         adminCommand.add(vacFilterCommand);
         adminCommand.add(contentCommand);
         adminCommand.add(establishRussianLocaleCommand);
@@ -56,6 +60,10 @@ public class CommandAffiliation {
         adminCommand.add("delete_vacancy");
         adminCommand.add("delete_user");
         adminCommand.add("close_old_vacancy");
+        adminCommand.add("delete_user");
+        adminCommand.add("delete_organization");
+        adminCommand.add("rise_to_admin");
+        adminCommand.add(editUser);
     }
 
     public static CommandAffiliation getInstance() {

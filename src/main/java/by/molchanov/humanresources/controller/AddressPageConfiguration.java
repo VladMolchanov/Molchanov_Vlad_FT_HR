@@ -19,16 +19,13 @@ public class AddressPageConfiguration {
 
     private static final String ADDRESS_PAGE_CONFIGURATION_FILE_NAME = "page_location.properties";
     private static final String MAIN_PAGE_VARIABLE_NAME = "page.location.main";
-    private static final String ERROR_PAGE_VARIABLE_NAME = "page.location.error";
     private String mainPageAddress;
-    private String errorPageAddress;
 
     private AddressPageConfiguration() {
         Properties properties = new Properties();
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(ADDRESS_PAGE_CONFIGURATION_FILE_NAME)) {
             properties.load(inputStream);
             mainPageAddress = properties.getProperty(MAIN_PAGE_VARIABLE_NAME);
-            errorPageAddress = properties.getProperty(ERROR_PAGE_VARIABLE_NAME);
         } catch (IOException e) {
             LOGGER.error("Properties file opening error!", e);
         }
@@ -38,11 +35,7 @@ public class AddressPageConfiguration {
         return addressPageConfiguration;
     }
 
-    public String getMainPageAddress() {
+    String getMainPageAddress() {
         return mainPageAddress;
-    }
-
-    public String getErrorPageAddress() {
-        return errorPageAddress;
     }
 }

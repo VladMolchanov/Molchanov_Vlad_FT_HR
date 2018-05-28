@@ -42,6 +42,7 @@ public class SendMessageExecutorImpl implements SendMessageExecutor {
     private Properties smtpProperties;
 
     private static final String SIGNATURE = "\n\n #application#human#resources";
+    private static final String SEPARATOR = " // ";
 
     private SendMessageExecutorImpl() {
         smtpProperties = new Properties();
@@ -69,9 +70,12 @@ public class SendMessageExecutorImpl implements SendMessageExecutor {
         String messageTheme = messageDataDTO.getMessageTheme();
         String messageText = messageDataDTO.getMessageText();
         String receiver = messageDataDTO.getReceiverEmail();
+        String vacName = messageDataDTO.getVacancyName();
         if (!isVacancyNameCorrect(messageTheme) || !isTextCorrect(messageText)){
             messageDataDTO.setInfoMessage(MESSAGE_INCORRECT_FORMAT);
         } else {
+            messageTheme += SEPARATOR;
+            messageTheme += vacName;
             messageText += SIGNATURE;
             sendMessage(messageTheme, messageText, receiver);
             messageDataDTO.setInfoMessage(MESSAGE_CORRECT_SEND);

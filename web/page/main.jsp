@@ -33,14 +33,6 @@
 </head>
 <body>
 
-<c:if test="${requestScope.info != null}">
-    <script>
-        alert("<fmt:message key="${requestScope.info}"/>");
-    </script>
-</c:if>
-
-<c:import url="component.jsp"/>
-
 <c:import url="log-in.jsp"/>
 
 <c:import url="logotype.jsp"/>
@@ -48,6 +40,8 @@
 <c:import url="register_user.jsp"/>
 
 <c:import url="user_profile.jsp"/>
+
+<c:import url="edit_user_profile.jsp"/>
 
 <div class="full-wrapper">
     <header class="container-fluid bg-dark text-white fixed-top p-2">
@@ -79,12 +73,23 @@
                                 </button>
                             </c:when>
                             <c:otherwise>
+                                <c:if test="${sessionScope.role == 'admin'}">
+                                    <a href="${pageContext.request.contextPath}/controller?command=close_old_vacancy">
+                                        <button class="btn btn-primary ">
+                                            <fmt:message key="content.button.user.close.old.vacancy"/>
+                                        </button>
+                                    </a>
+                                </c:if>
+                                <button class="btn btn-primary " data-toggle="modal"
+                                        data-target="#user-edit-profile-modal">
+                                    <fmt:message key="content.button.profile.edit"/>
+                                </button>
                                 <button class="btn btn-dark " data-toggle="modal" data-target="#user-profile-modal">
                                     <fmt:message key="content.button.user.profile"/>
                                 </button>
                                 <!-- Button to Open the Modal -->
                                 <a href="${pageContext.request.contextPath}/controller?command=log_out">
-                                    <button class="btn btn-primary " name="command" value="log_out">
+                                    <button class="btn btn-primary ">
                                         <fmt:message key="content.button.user.log.out"/>
                                     </button>
                                 </a>
@@ -131,40 +136,73 @@
                             </div>
                         </div>
                     </div>
-                    <c:if test="${sessionScope.role == 'director'}">
-                        <div class="card">
-                            <div class="card-header">
-                                <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
-                                    <fmt:message key="content.request"/>
-                                </a>
-                            </div>
-                            <div id="collapseTwo" class="collapse" data-parent="#accordion">
-                                <div class="card-body">
-                                    <c:import url="request_content.jsp"/>
+                    <c:choose>
+                        <c:when test="${sessionScope.role == 'director'}">
+                            <div class="card">
+                                <div class="card-header">
+                                    <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+                                        <fmt:message key="content.request"/>
+                                    </a>
+                                </div>
+                                <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <c:import url="request_content.jsp"/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
-                                    <fmt:message key="content.button.add.vacancy"/>
-                                </a>
-                            </div>
-                            <div id="collapseThree" class="collapse" data-parent="#accordion">
-                                <div class="card-body">
-                                    <c:import url="register_vacancy.jsp"/>
+                            <div class="card">
+                                <div class="card-header">
+                                    <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+                                        <fmt:message key="content.button.add.vacancy"/>
+                                    </a>
+                                </div>
+                                <div id="collapseThree" class="collapse" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <c:import url="register_vacancy.jsp"/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </c:if>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="card">
+                                <div class="card-header">
+                                    <a class="collapsed card-link" data-toggle="collapse" href="#collapseFour">
+                                        <fmt:message key="content.users"/>
+                                    </a>
+                                </div>
+                                <div id="collapseFour" class="collapse" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <c:import url="user_content.jsp"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <a class="collapsed card-link" data-toggle="collapse" href="#collapseFive">
+                                        <fmt:message key="content.organizations"/>
+                                    </a>
+                                </div>
+                                <div id="collapseFive" class="collapse" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <c:import url="organization_content.jsp"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </c:when>
-            <c:when test="${sessionScope.role != 'admin' || sessionScope.role != 'director'}">
+            <c:otherwise>
                 <c:import url="vacancy_content.jsp"/>
-            </c:when>
+            </c:otherwise>
         </c:choose>
     </div>
 </div>
+<c:if test="${requestScope.info != null}">
+    <script>
+        alert("<fmt:message key="${requestScope.info}"/>");
+    </script>
+</c:if>
 <footer class="container-fluid bg-dark text-white p-2">
     <div class="container">
         <ctg:role-time role="${sessionScope.role}"/>

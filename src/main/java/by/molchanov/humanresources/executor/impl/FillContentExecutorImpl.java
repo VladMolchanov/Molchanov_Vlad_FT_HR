@@ -2,12 +2,13 @@ package by.molchanov.humanresources.executor.impl;
 
 import by.molchanov.humanresources.dao.JobRequestDAO;
 import by.molchanov.humanresources.dao.JobVacancyDAO;
+import by.molchanov.humanresources.dao.OrganizationDAO;
+import by.molchanov.humanresources.dao.UserDAO;
 import by.molchanov.humanresources.dao.impl.JobRequestDAOImpl;
 import by.molchanov.humanresources.dao.impl.JobVacancyDAOImpl;
-import by.molchanov.humanresources.entity.JobRequest;
-import by.molchanov.humanresources.entity.JobRequestStatusType;
-import by.molchanov.humanresources.entity.JobVacancy;
-import by.molchanov.humanresources.entity.JobVacancyStatusType;
+import by.molchanov.humanresources.dao.impl.OrganizationDAOImpl;
+import by.molchanov.humanresources.dao.impl.UserDAOImpl;
+import by.molchanov.humanresources.entity.*;
 import by.molchanov.humanresources.exception.CustomDAOException;
 import by.molchanov.humanresources.exception.CustomExecutorException;
 import by.molchanov.humanresources.executor.FillContentExecutor;
@@ -29,8 +30,10 @@ public class FillContentExecutorImpl implements FillContentExecutor {
     private static final String ROLE_ADMIN = "admin";
     private static final String ROLE_DIRECTOR = "director";
 
-    private static final JobVacancyDAO JOB_VACANCY_DAO = JobVacancyDAOImpl.getInstance();
-    private static final JobRequestDAO JOB_REQUEST_DAO = JobRequestDAOImpl.getInstance();
+    private JobVacancyDAO jobVacancyDAO = JobVacancyDAOImpl.getInstance();
+    private JobRequestDAO jobRequestDAO = JobRequestDAOImpl.getInstance();
+    private UserDAO userDAO = UserDAOImpl.getInstance();
+    private OrganizationDAO organizationDAO = OrganizationDAOImpl.getInstance();
 
     private FillContentExecutorImpl() {
 
@@ -53,7 +56,7 @@ public class FillContentExecutorImpl implements FillContentExecutor {
             searchField = emptySearchField;
         }
         try {
-            vacancies = JOB_VACANCY_DAO.findVacancyInfoByType(jobVacancyStatusType, searchField, startVacancyNumber, vacanciesQuantity);
+            vacancies = jobVacancyDAO.findVacancyInfoByType(jobVacancyStatusType, searchField, startVacancyNumber, vacanciesQuantity);
         } catch (CustomDAOException e) {
             throw new CustomExecutorException(e);
         }
@@ -70,16 +73,42 @@ public class FillContentExecutorImpl implements FillContentExecutor {
             searchField = emptySearchField;
         }
         if (ROLE_DIRECTOR.equals(userRole)) {
-            jobRequestStatusType = JobRequestStatusType.ADDED;
+            jobRequestStatusType = JobRequestStatusType.REJECTED;
             try {
-                requests = JOB_REQUEST_DAO.findRequestByTypeRole(jobRequestStatusType, organizationId, searchField, startRequestNumber, requestsQuantity);
+                requests = jobRequestDAO.findRequestByTypeRole(jobRequestStatusType, organizationId, searchField, startRequestNumber, requestsQuantity);
             } catch (CustomDAOException e) {
                 throw new CustomExecutorException(e);
             }
-        } else{
+        } else {
             requests = new ArrayList<>();
         }
         return requests;
+    }
+
+    @Override
+    public List<User> fillUser(String userRole, int startUserNumber, int usersQuantity) throws CustomExecutorException {
+        List<User> users;
+        if (ROLE_ADMIN.equals(userRole)) {
+            try {
+                users = userDAO.findPartOfUsers(UserStatusType.ADMIN, startUserNumber, usersQuantity);
+            } catch (CustomDAOException e) {
+                throw new CustomExecutorException(e);
+            }
+        } else {
+            users = new ArrayList<>();
+        }
+        return users;
+    }
+
+    @Override
+    public List<Organization> fillOrganization(int startOrganizationNumber, int organizationsQuantity) throws CustomExecutorException {
+        List<Organization> organizations;
+        try {
+            organizations = organizationDAO.findPartOfOrganizations(startOrganizationNumber, organizationsQuantity);
+        } catch (CustomDAOException e) {
+            throw new CustomExecutorException(e);
+        }
+        return organizations;
     }
 
     @Override
@@ -94,7 +123,7 @@ public class FillContentExecutorImpl implements FillContentExecutor {
             searchField = emptySearchField;
         }
         try {
-            count = JOB_VACANCY_DAO.getVacanciesCount(jobVacancyStatusType, searchField);
+            count = jobVacancyDAO.findVacanciesCount(jobVacancyStatusType, searchField);
         } catch (CustomDAOException e) {
             throw new CustomExecutorException(e);
         }
@@ -110,12 +139,36 @@ public class FillContentExecutorImpl implements FillContentExecutor {
             searchField = emptySearchField;
         }
         if (ROLE_DIRECTOR.equals(userRole)) {
-            jobRequestStatusType = JobRequestStatusType.ADDED;
             try {
-                count = JOB_REQUEST_DAO.getRequestsCount(jobRequestStatusType, searchField, orgId);
+                jobRequestStatusType = JobRequestStatusType.REJECTED;
+                count = jobRequestDAO.findRequestsCount(jobRequestStatusType, searchField, orgId);
             } catch (CustomDAOException e) {
                 throw new CustomExecutorException(e);
             }
+        }
+        return count;
+    }
+
+    @Override
+    public int findUsersCount(String userRole) throws CustomExecutorException {
+        int count = 0;
+        if (ROLE_ADMIN.equals(userRole)) {
+            try {
+                count = userDAO.findUsersCount(UserStatusType.ADMIN);
+            } catch (CustomDAOException e) {
+                throw new CustomExecutorException(e);
+            }
+        }
+        return count;
+    }
+
+    @Override
+    public int findOrganizationsCount() throws CustomExecutorException {
+        int count;
+        try {
+            count = organizationDAO.findOrganizationsCount();
+        } catch (CustomDAOException e) {
+            throw new CustomExecutorException(e);
         }
         return count;
     }

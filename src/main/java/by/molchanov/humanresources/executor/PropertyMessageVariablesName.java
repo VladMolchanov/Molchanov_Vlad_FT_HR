@@ -19,6 +19,7 @@ public class PropertyMessageVariablesName {
     public static final String ORG_REGISTRATION_INCORRECT_WEBSITE_URL = "content.information.org.registration.incorrect.website.url";
     public static final String ORG_REGISTRATION_INCORRECT_DESCRIPTION = "content.information.org.registration.incorrect.description";
     public static final String VACANCY_SUCCESSFUL_REGISTRATION = "content.information.vacancy.successful.registration";
+    public static final String SUCCESSFUL_EDIT = "content.information.vacancy.successful.edit";
     public static final String VACANCY_INCORRECT_REQUIREMENT = "content.information.vacancy.incorrect.requirement";
     public static final String VACANCY_INCORRECT_NAME = "content.information.vacancy.incorrect.name";
     public static final String REQUEST_INCORRECT_RESUME = "content.information.request.incorrect.resume";

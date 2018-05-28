@@ -87,31 +87,66 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO {
     }
 
     @Override
-    public List<User> findPartOfUsers(int firstLimit, int secondLimit) throws CustomDAOException {
-        List<User> selection;
-        String sqlScript = "??";
+    public List<User> findPartOfUsers(UserStatusType userStatusType, int startUserNumber,
+                                      int usersQuantity) throws CustomDAOException {
+        List<User> result = new ArrayList<>();
+        User user;
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
         try {
             connection = connectionPool.takeConnection();
-            try (PreparedStatement statement = connection.prepareStatement(sqlScript)) {
-                statement.setInt(1, firstLimit);
-                statement.setInt(2, secondLimit);
+            try (PreparedStatement statement = connection.prepareStatement(USER_QUERY_SELECT_EXCLUDING_ROLE)) {
+                statement.setString(1, userStatusType.getValue());
+                statement.setInt(2, startUserNumber);
+                statement.setInt(3, usersQuantity);
                 try (ResultSet set = statement.executeQuery()) {
-                    selection = parseResultSet(set);
+                    while (set.next()) {
+                        user = new User();
+                        user.setEmail(set.getString(USER_FIELD_EMAIL));
+                        user.setId(set.getInt(USER_FIELD_ID));
+                        Organization organization = new Organization();
+                        organization.setName(set.getString(ORGANIZATION_FIELD_NAME));
+                        user.setOrganization(organization);
+                        user.setFirstName(set.getString(USER_FIELD_FIRST_NAME));
+                        user.setLastName(set.getString(USER_FIELD_LAST_NAME));
+                        user.setRole(UserStatusType.valueOf(set.getString(USER_FIELD_ROLE).toUpperCase()));
+                        result.add(user);
+                    }
                 }
             } catch (SQLException e) {
                 throw new CustomDAOException(e);
-            }
-            if (selection == null) {
-                throw new CustomDAOException("Selection error while getting part of users records!");
             }
         } finally {
             if (connection != null) {
                 connectionPool.returnConnection(connection);
             }
         }
-        return selection;
+        return result;
+    }
+
+    @Override
+    public int findUsersCount(UserStatusType userStatusType) throws CustomDAOException {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = null;
+        int count = 0;
+        try {
+            connection = connectionPool.takeConnection();
+            try (PreparedStatement statement = connection.prepareStatement(USERS_COUNT_SELECT)) {
+                statement.setString(1, userStatusType.getValue());
+                try (ResultSet set = statement.executeQuery()) {
+                    while (set.next()) {
+                        count = set.getInt(USERS_COUNT);
+                    }
+                }
+            } catch (SQLException e) {
+                throw new CustomDAOException("SQL execute error!", e);
+            }
+        } finally {
+            if (connection != null) {
+                connectionPool.returnConnection(connection);
+            }
+        }
+        return count;
     }
 
     @Override
@@ -142,7 +177,11 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO {
             statement.setString(3, object.getPass());
             statement.setString(4, object.getFirstName());
             statement.setString(5, object.getLastName());
-            statement.setInt(6, object.getOrganization().getId());
+            if (object.getOrganization().getId() == 0) {
+                statement.setString(6, null);
+            } else {
+                statement.setInt(6, object.getOrganization().getId());
+            }
             statement.setInt(7, object.getId());
         } catch (SQLException e) {
             throw new CustomDAOException("Statement error for update!", e);

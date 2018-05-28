@@ -11,6 +11,7 @@ import by.molchanov.humanresources.entity.Organization;
 public class VacancyDataDTO {
     private JobVacancy jobVacancy;
     private String infoMessage;
+    private String vacancyId;
 
     public JobVacancy getJobVacancy() {
         return jobVacancy;
@@ -26,5 +27,13 @@ public class VacancyDataDTO {
 
     public void setInfoMessage(String infoMessage) {
         this.infoMessage = infoMessage;
+    }
+
+    public String getVacancyId() {
+        return vacancyId;
+    }
+
+    public void setVacancyId(String vacancyId) {
+        this.vacancyId = vacancyId;
     }
 }

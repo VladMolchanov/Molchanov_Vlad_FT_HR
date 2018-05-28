@@ -27,6 +27,7 @@ public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVac
     private static final JobVacancyDAOImpl JOB_REQUEST_DAO = new JobVacancyDAOImpl();
 
     private static final String DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
+    private static final String PERCENT_SIGN = "%";
 
     private JobVacancyDAOImpl() {}
 
@@ -45,7 +46,7 @@ public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVac
             connection = connectionPool.takeConnection();
             try (PreparedStatement statement = connection.prepareStatement(JOB_VACANCY_QUERY_SELECT_VACANCY_CONTENT)) {
                 statement.setString(1, jobVacancyStatusType.getValue());
-                statement.setString(2, "%" + searchField + "%");
+                statement.setString(2, PERCENT_SIGN + searchField + PERCENT_SIGN);
                 statement.setInt(3, startVacancyNumber);
                 statement.setInt(4, vacanciesQuantity);
                 try (ResultSet set = statement.executeQuery()) {
@@ -77,7 +78,7 @@ public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVac
     }
 
     @Override
-    public int getVacanciesCount(JobVacancyStatusType jobVacancyStatusType, String searchField) throws CustomDAOException {
+    public int findVacanciesCount(JobVacancyStatusType jobVacancyStatusType, String searchField) throws CustomDAOException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
         int count = 0;
@@ -85,7 +86,7 @@ public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVac
             connection = connectionPool.takeConnection();
             try (PreparedStatement statement = connection.prepareStatement(JOB_VACANCIES_COUNT_SELECT)) {
                 statement.setString(1, jobVacancyStatusType.getValue());
-                statement.setString(2, "%" + searchField + "%");
+                statement.setString(2, PERCENT_SIGN + searchField + PERCENT_SIGN);
                 try (ResultSet set = statement.executeQuery()) {
                     while (set.next()) {
                         count = set.getInt(JOB_VACANCIES_COUNT);

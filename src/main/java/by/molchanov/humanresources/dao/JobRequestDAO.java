@@ -16,5 +16,5 @@ public interface JobRequestDAO extends OverallDAO<JobRequest> {
     List<JobRequest> findRequestByTypeRole(JobRequestStatusType jobRequestStatusType, int orgId, String searchField,
                                            int startRequestNumber,
                                            int requestsQuantity) throws CustomDAOException;
-    int getRequestsCount(JobRequestStatusType jobRequestStatusType, String searchField, int orgId) throws CustomDAOException;
+    int findRequestsCount(JobRequestStatusType jobRequestStatusType, String searchField, int orgId) throws CustomDAOException;
 }

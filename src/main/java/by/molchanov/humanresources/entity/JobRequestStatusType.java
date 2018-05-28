@@ -6,7 +6,7 @@ package by.molchanov.humanresources.entity;
  * @author MolcanovVladislav
  */
 public enum JobRequestStatusType {
-    REJECTED("rejected"), NEW("new"), APPROVED("approved") , ADDED("added");
+    REJECTED("rejected"), APPROVED("approved") , ADDED("added");
 
     private String value;
 

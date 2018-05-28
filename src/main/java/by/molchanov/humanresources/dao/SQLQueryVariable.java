@@ -8,16 +8,17 @@ package by.molchanov.humanresources.dao;
 public class SQLQueryVariable {
     public static final String USER_QUERY_SELECT = "SELECT u_id, u_email, u_role, u_password, u_firstname," +
             " u_lastname, u_organization_id FROM user ";
-    public static final String USER_QUERY_SELECT_PART_OF_USERS = "SELECT u_id, u_email, u_role, u_firstname," +
-            " u_lastname, u_organization_id FROM user LIMIT ? , ?";
     public static final String USER_QUERY_UPDATE = "UPDATE user SET u_email = ?, u_role = ?, u_password = ?, u_firstname = ?," +
-            " u_secondname = ?, u_organization_id = ? WHERE u_id = '?'";
+            " u_lastname = ?, u_organization_id = ? WHERE u_id = ?";
     public static final String USER_QUERY_ROLE_ORG_ID_UPDATE = "UPDATE user SET u_role = ?, u_organization_id = ? WHERE u_id = ?";
     public static final String USER_QUERY_DELETE_BY_ID = "DELETE FROM user WHERE u_id = ?";
     public static final String USER_QUERY_CREATE = "INSERT INTO user (u_email, u_role, u_password, u_firstname," +
             " u_lastname, u_organization_id) VALUES (?, ?, ?, ?, ?, ?)";
     public static final String USER_QUERY_SELECT_USER_BY_EMAIL_PASS = "SELECT u_id, u_email, u_role, u_password, u_firstname," +
             " u_lastname, u_organization_id FROM user WHERE u_email = ? AND u_password = ?";
+    public static final String USER_QUERY_SELECT_EXCLUDING_ROLE = "SELECT user.u_id, user.u_email, user.u_role, user.u_password, user.u_firstname," +
+            " user.u_lastname, organization.o_name FROM user LEFT JOIN organization ON user.u_organization_id = organization.o_id " +
+            "WHERE user.u_role != ? LIMIT ? , ?";
     public static final String USER_FIELD_ID = "u_id";
     public static final String USER_FIELD_EMAIL = "u_email";
     public static final String USER_FIELD_PASS = "u_password";
@@ -25,9 +26,12 @@ public class SQLQueryVariable {
     public static final String USER_FIELD_LAST_NAME = "u_lastname";
     public static final String USER_FIELD_ORGANIZATION_ID = "u_organization_id";
     public static final String USER_FIELD_ROLE = "u_role";
+    public static final String USERS_COUNT_SELECT = "SELECT COUNT(u_id) FROM user WHERE user.u_role != ?";
+    public static final String USERS_COUNT = "COUNT(u_id)";
 
 
     public static final String ORGANIZATION_QUERY_SELECT = "SELECT o_id, o_name, o_description, o_website, o_type FROM organization ";
+    public static final String ORGANIZATION_QUERY_SELECT_PART = "SELECT o_id, o_name, o_description, o_website, o_type FROM organization LIMIT ? , ?";
     public static final String ORGANIZATION_QUERY_UPDATE = "UPDATE organization SET o_name = ?, o_website = ?, o_description = ?, o_type = ? WHERE o_id = ";
     public static final String ORGANIZATION_QUERY_DELETE_BY_ID = "DELETE FROM organization WHERE o_id = ?";
     public static final String ORGANIZATION_QUERY_CREATE = "INSERT INTO organization (o_name, o_website, o_description, o_type) VALUES (?, ?, ?, ?)";
@@ -36,15 +40,16 @@ public class SQLQueryVariable {
     public static final String ORGANIZATION_FIELD_WEBSITE = "o_website";
     public static final String ORGANIZATION_FIELD_DESCRIPTION = "o_description";
     public static final String ORGANIZATION_FIELD_TYPE = "o_type";
-
+    public static final String ORGANIZATIONS_COUNT_SELECT = "SELECT COUNT(o_id) FROM organization";
+    public static final String ORGANIZATIONS_COUNT = "COUNT(o_id)";
 
     public static final String JOB_REQUEST_QUERY_SELECT = "SELECT jr_id, jr_job_vacancy_id, jr_user_id, jr_resume, jr_status FROM job_request ";
     public static final String JOB_REQUEST_QUERY_UPDATE = "UPDATE job_request SET jr_job_vacancy_id = ?, jr_user_id = ?," +
             " jr_resume = ?, jr_status = ? WHERE jr_id = ?";
-    public static final String JOB_REQUEST_QUERY_SELECT_REQUEST_CONTENT = "SELECT user.u_id, job_request.jr_id, user.u_email, job_request.jr_resume, job_vacancy.jv_name " +
+    public static final String JOB_REQUEST_QUERY_SELECT_REQUEST_CONTENT = "SELECT user.u_id, job_request.jr_id, user.u_email, job_request.jr_resume, job_request.jr_status, job_vacancy.jv_name " +
             "FROM (job_request   INNER JOIN job_vacancy ON job_request.jr_job_vacancy_id = job_vacancy.jv_id )   " +
             "INNER JOIN user ON job_request.jr_user_id = user.u_id " +
-            " WHERE job_request.jr_status = ? AND job_vacancy.jv_organization_id = ? AND job_vacancy.jv_name LIKE ? limit ?, ?";
+            " WHERE job_request.jr_status != ?  AND job_vacancy.jv_organization_id = ? AND job_vacancy.jv_name LIKE ? limit ?, ?";
     public static final String JOB_REQUEST_QUERY_DELETE_BY_ID = "DELETE FROM job_request WHERE jr_id = ?";
     public static final String JOB_REQUEST_QUERY_CREATE = "INSERT INTO job_request (jr_job_vacancy_id, jr_user_id, jr_resume, jr_status)" +
             " VALUES (?, ?, ?, ?)";
@@ -55,7 +60,7 @@ public class SQLQueryVariable {
     public static final String JOB_REQUEST_FIELD_STATUS = "jr_status";
     public static final String JOB_REQUESTS_COUNT_SELECT = "SELECT COUNT(jr_id) FROM job_request " +
             "INNER JOIN job_vacancy ON job_request.jr_job_vacancy_id = job_vacancy.jv_id " +
-            "WHERE job_request.jr_status = ? AND job_vacancy.jv_organization_id = ? AND job_vacancy.jv_name LIKE ?";
+            "WHERE job_request.jr_status != ? AND job_vacancy.jv_organization_id = ? AND job_vacancy.jv_name LIKE ?";
     public static final String JOB_REQUESTS_COUNT = "COUNT(jr_id)";
 
 

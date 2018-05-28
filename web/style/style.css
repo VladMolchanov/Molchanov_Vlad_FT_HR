@@ -17,9 +17,6 @@ footer {
 .wrapper{
     margin-top:4rem;
 }
-textarea{
-    width: -webkit-fill-available;
-}
 @keyframes fadeIn {
     0% {opacity: 0;}
     100% {opacity: 1;}
@@ -85,4 +82,7 @@ textarea{
 }
 .notificationsSlides img{
     width: 60%;
+}
+.control_button {
+    margin-right: 2px;
 }

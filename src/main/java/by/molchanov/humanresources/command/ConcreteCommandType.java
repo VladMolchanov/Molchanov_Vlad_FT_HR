@@ -1,6 +1,10 @@
 package by.molchanov.humanresources.command;
 
-import by.molchanov.humanresources.command.impl.*;
+import by.molchanov.humanresources.command.admin.*;
+import by.molchanov.humanresources.command.aspirant.JobRequestRegistrationCommand;
+import by.molchanov.humanresources.command.aspirant.OrgRegistrationCommand;
+import by.molchanov.humanresources.command.common.*;
+import by.molchanov.humanresources.command.director.*;
 
 import static by.molchanov.humanresources.command.ResponseType.FORWARD;
 
@@ -219,6 +223,50 @@ public enum ConcreteCommandType {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
             return FillContentCommand.getInstance();
+        }
+
+        @Override
+        public ResponseType getResponseType() {
+            return FORWARD;
+        }
+    },
+    RISE_TO_ADMIN {
+        @Override
+        public ConcreteCommand getConcreteCommandBroker() {
+            return RiseToAdminCommand.getInstance();
+        }
+
+        @Override
+        public ResponseType getResponseType() {
+            return FORWARD;
+        }
+    },
+    EDIT_VACANCY {
+        @Override
+        public ConcreteCommand getConcreteCommandBroker() {
+            return EditVacancyCommand.getInstance();
+        }
+
+        @Override
+        public ResponseType getResponseType() {
+            return FORWARD;
+        }
+    },
+    EDIT_USER {
+        @Override
+        public ConcreteCommand getConcreteCommandBroker() {
+            return EditUserCommand.getInstance();
+        }
+
+        @Override
+        public ResponseType getResponseType() {
+            return FORWARD;
+        }
+    },
+    DELETE_ORGANIZATION {
+        @Override
+        public ConcreteCommand getConcreteCommandBroker() {
+            return DeleteOrganizationCommand.getInstance();
         }
 
         @Override

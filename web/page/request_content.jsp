@@ -62,64 +62,79 @@
         <tr>
             <td>${request.jobVacancy.name}</td>
             <td>${request.user.email}</td>
-            <td>
-                <button type="button" class="btn btn-primary" data-toggle="modal"
-                        data-target="#request-${request.id}-modal">
-                    <fmt:message key="content.view.request"/>
-                </button>
-                <!-- The Modal -->
-                <div class="modal fade" id="request-${request.id}-modal">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
+            <c:choose>
+                <c:when test="${request.status.value == 'added'}">
+                    <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#request-${request.id}-modal">
+                            <fmt:message key="content.view.request"/>
+                        </button>
+                        <!-- The Modal -->
+                        <div class="modal fade" id="request-${request.id}-modal">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
 
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                                <h4 class="modal-title">
-                                    <fmt:message key="content.modal.header.view.request"/></h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;
-                                </button>
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">
+                                            <fmt:message key="content.modal.header.view.request"/></h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;
+                                        </button>
+                                    </div>
+                                    <form name="requestForm" method="POST" action="controller">
+                                        <input class="form-control" type="hidden" name="request_id"
+                                               value="${request.id}"/>
+                                        <input type="hidden" name="command" value="send_request_answer">
+                                        <input type="hidden" name="aspirant_email" value="${request.user.email}">
+                                        <input type="hidden" name="vacancy_name" value="${request.jobVacancy.name}">
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            <h4><fmt:message key="content.resume.text"/></h4>
+                                            <p>${request.resume}</p>
+
+                                            <br/><fmt:message key="content.message.theme"/><br/>
+                                            <input class="form-control" type="text" name="message_theme"
+                                                   placeholder="theme*" pattern="[-,.?!'()\wА-Яа-я\s]{1,45}"/>
+                                            <label for="request-${request.id}-message"><fmt:message
+                                                    key="content.message.text"/></label>
+                                            <textarea class="form-control"
+                                                      id="request-${request.id}-org-description" name="answer_message"
+                                                      placeholder="Resume*" rows="4"
+                                                      cols="50"></textarea>
+                                        </div>
+
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <input class="btn btn-primary" type="submit"
+                                                   value="<fmt:message key="content.button.send.answer"/>"/>
+
+                                            <input class="btn btn-primary" type="submit"
+                                                   value="<fmt:message key="content.button.close.request"/>"
+                                                   formaction="/controller?command=close_request"/>
+
+                                            <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">
+                                                <fmt:message key="content.button.cancel"/>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                            <form name="requestForm" method="POST" action="controller">
-                                <input class="form-control" type="hidden" name="request_id"
-                                       value="${request.id}"/>
-                                <input type="hidden" name="command" value="send_request_answer">
-                                <input type="hidden" name="aspirant_email" value="${request.user.email}">
-                                <!-- Modal body -->
-                                <div class="modal-body">
-                                    <h4><fmt:message key="content.resume.text"/></h4>
-                                    <p>${request.resume}</p>
-
-                                    <br/><fmt:message key="content.message.theme"/><br/>
-                                    <input class="form-control" type="text" name="message_theme"
-                                           placeholder="theme*" pattern="[-,.?!'()\wА-Яа-я\s]{1,45}"/>
-                                    <label for="request-${request.id}-message"><fmt:message key="content.message.text"/></label>
-                                    <textarea class="form-control"
-                                              id="request-${request.id}-org-description" name="answer_message"
-                                              placeholder="Resume*" required rows="4"
-                                              cols="50"></textarea>
-                                </div>
-
-                                <!-- Modal footer -->
-                                <div class="modal-footer">
-                                    <input class="btn btn-primary" type="submit"
-                                           value="<fmt:message key="content.button.send.answer"/>"/>
-
-                                    <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">
-                                        <fmt:message key="content.button.cancel"/>
-                                    </button>
-                                </div>
-                            </form>
-                            <form name="closeForm" method="POST" action="controller">
-                                <input type="hidden" name="command" value="close_request">
-                                <input type="hidden" name="request_id" value="${request.id}">
-                                <input class="btn btn-primary" type="submit"
-                                       value="<fmt:message key="content.button.close.request"/>"/>
-                            </form>
                         </div>
-                    </div>
-                </div>
-            </td>
+                    </td>
+                </c:when>
+                <c:otherwise>
+                    <td>
+                        <fmt:message key="content.answer.send"/>
+                        <form name="closeForm" method="POST" action="controller">
+                            <input type="hidden" name="command" value="close_request">
+                            <input type="hidden" name="request_id" value="${request.id}">
+                            <input class="btn btn-primary" type="submit"
+                                   value="<fmt:message key="content.button.close.request"/>"/>
+                        </form>
+                    </td>
+                </c:otherwise>
+            </c:choose>
         </tr>
     </c:forEach>
     </tbody>
@@ -157,7 +172,7 @@
         <c:if test="${start != 0}">
             <li class="page-item">
                 <div class="page-link"><a
-                        href="/controller?command=fill_content&start_request_number=${start - step}&requests_quantity=${step}">
+                        href="${pageContext.request.contextPath}/controller?command=fill_content&start_request_number=${start - step}&requests_quantity=${step}">
                     Предыдущая</a></div>
             </li>
         </c:if>
@@ -168,7 +183,7 @@
                         <fmt:parseNumber var="page" type="number" value="${(start + step) / step + i - 2}"/>
                         <li class="page-item">
                             <div class="page-link">
-                                <a href="/controller?command=fill_content&start_request_number=${start + step * (i - 2)}&requests_quantity=${step}">
+                                <a href="${pageContext.request.contextPath}/controller?command=fill_content&start_request_number=${start + step * (i - 2)}&requests_quantity=${step}">
                                         ${page}</a>
                             </div>
                         </li>
@@ -187,7 +202,7 @@
         <c:if test="${(count - start) gt step}">
             <li class="page-item">
                 <div class="page-link"><a
-                        href="/controller?command=fill_content&start_vacancy_number=${start + step}&vacancies_quantity=${step}">
+                        href="${pageContext.request.contextPath}/controller?command=fill_content&start_request_number=${start + step}&requests_quantity=${step}">
                     Следующая</a></div>
             </li>
         </c:if>
@@ -206,7 +221,7 @@
                 <c:otherwise>
                     <li class="page-item">
                         <div class="page-link">
-                            <a href="/controller?command=fill_vacancy&start_vacancy_number=0&vacancies_quantity=10">10</a>${" "}
+                            <a href="${pageContext.request.contextPath}/controller?command=fill_content&start_request_number=0&requests_quantity=10">10</a>${" "}
                         </div>
                     </li>
                 </c:otherwise>
@@ -222,7 +237,7 @@
                 <c:otherwise>
                     <li class="page-item">
                         <div class="page-link">
-                            <a href="/controller?command=fill_vacancy&start_vacancy_number=0&vacancies_quantity=20">20</a>${" "}
+                            <a href="${pageContext.request.contextPath}/controller?command=fill_content&start_request_number=0&requests_quantity=20">20</a>${" "}
                         </div>
                     </li>
                 </c:otherwise>

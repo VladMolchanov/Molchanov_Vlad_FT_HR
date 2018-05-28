@@ -15,9 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JobRequestDAOTest {
-    private static Organization testOrganization;
-    private static JobVacancy testJobVacancy;
-    private static User testUser;
+    private Organization testOrganization;
+    private JobVacancy testJobVacancy;
+    private User testUser;
 
     @BeforeClass
     public void entityInit() {
@@ -100,7 +100,6 @@ public class JobRequestDAOTest {
         jobRequest.setStatus(JobRequestStatusType.ADDED);
         int primaryRequestsSize = 0;
         int newRequestsSize = 0;
-
         try {
             requests = jobRequestDAO.findAll();
             primaryRequestsSize = requests.size();
@@ -200,7 +199,7 @@ public class JobRequestDAOTest {
         try {
             firstJobRequest = jobRequestDAO.persist(firstJobRequest);
             secondJobRequest = jobRequestDAO.persist(secondJobRequest);
-            requests = jobRequestDAO.findRequestByTypeRole(JobRequestStatusType.ADDED , orgId, "" , 0 , 10);
+            requests = jobRequestDAO.findRequestByTypeRole(JobRequestStatusType.REJECTED , orgId, "" , 0 , 10);
             jobRequestDAO.delete(firstJobRequest);
             jobRequestDAO.delete(secondJobRequest);
         } catch (CustomDAOException e) {
