@@ -9,12 +9,13 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.LO
 /**
  * Class {@link EstablishRussianLocaleICommand} is used for set russian language to representation.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see ConcreteCommand
  */
 public class EstablishRussianLocaleICommand implements ConcreteCommand {
     private static final EstablishRussianLocaleICommand EST_RUS_LOC_COMMAND = new EstablishRussianLocaleICommand();
-    private static final ConcreteCommand FILL_VACANCY_COMMAND = FillContentCommand.getInstance();
+    private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();
+
     private static final String RUSSIAN_LOCALE = "ru_RU";
 
     private EstablishRussianLocaleICommand() {
@@ -27,7 +28,7 @@ public class EstablishRussianLocaleICommand implements ConcreteCommand {
 
     @Override
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
-        FILL_VACANCY_COMMAND.execute(requestHolder);
+        fillContentCommand.execute(requestHolder);
         requestHolder.addSessionAttribute(LOCALE, RUSSIAN_LOCALE);
     }
 }

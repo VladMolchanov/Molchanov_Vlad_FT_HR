@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 /**
  * Class {@link OrganizationDataValidation} used for validation of organization data.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  */
 public class OrganizationDataValidation {
     private static final String REGEX_ORG_NAME = "^[-\\wА-Яа-я\\s]{1,45}$";

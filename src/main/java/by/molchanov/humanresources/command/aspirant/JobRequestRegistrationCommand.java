@@ -17,13 +17,13 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.*;
 /**
  * Class {@link JobRequestRegistrationCommand} is used for new request registration.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see ConcreteCommand
  */
 public class JobRequestRegistrationCommand implements ConcreteCommand {
     private static final JobRequestRegistrationCommand JOB_REQUEST_REGISTRATION_COMMAND = new JobRequestRegistrationCommand();
-    private static final RegistrationExecutor REGISTRATION_EXECUTOR = RegistrationExecutorImpl.getInstance();
-    private static final ConcreteCommand FILL_VACANCY_COMMAND = FillContentCommand.getInstance();
+    private RegistrationExecutor registrationExecutor = RegistrationExecutorImpl.getInstance();
+    private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();
 
     private static final int FIRST_INDEX = 0;
 
@@ -49,8 +49,8 @@ public class JobRequestRegistrationCommand implements ConcreteCommand {
         JobRequestDataDTO jobRequestDataDTO = new JobRequestDataDTO();
         jobRequestDataDTO.setJobRequest(jobRequest);
         try {
-            REGISTRATION_EXECUTOR.requestSignUp(jobRequestDataDTO);
-            FILL_VACANCY_COMMAND.execute(requestHolder);
+            registrationExecutor.requestSignUp(jobRequestDataDTO);
+            fillContentCommand.execute(requestHolder);
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
         }

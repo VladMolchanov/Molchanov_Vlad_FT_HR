@@ -28,16 +28,16 @@ import static by.molchanov.humanresources.validator.VacancyRequestDataValidation
 /**
  * Class {@link RegistrationExecutorImpl} used for different registration.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see RegistrationExecutor
  */
 public class RegistrationExecutorImpl implements RegistrationExecutor {
     private static final RegistrationExecutorImpl REGISTRATION_EXECUTOR = new RegistrationExecutorImpl();
 
-    private static final UserDAO USER_DAO = UserDAOImpl.getInstance();
-    private static final OrganizationDAO ORGANIZATION_DAO = OrganizationDAOImpl.getInstance();
-    private static final JobVacancyDAO JOB_VACANCY_DAO = JobVacancyDAOImpl.getInstance();
-    private static final JobRequestDAO JOB_REQUEST_DAO = JobRequestDAOImpl.getInstance();
+    private UserDAO userDAO = UserDAOImpl.getInstance();
+    private OrganizationDAO organizationDAO = OrganizationDAOImpl.getInstance();
+    private JobVacancyDAO jobVacancyDAO = JobVacancyDAOImpl.getInstance();
+    private JobRequestDAO jobRequestDAO = JobRequestDAOImpl.getInstance();
 
     private RegistrationExecutorImpl() {
 
@@ -59,7 +59,7 @@ public class RegistrationExecutorImpl implements RegistrationExecutor {
         String lastName = userDataDTO.getUserExemplar().getLastName();
         String infoMessage = USER_SUCCESSFUL_REGISTRATION;
         try {
-            List<User> users = USER_DAO.findAll();
+            List<User> users = userDAO.findAll();
             boolean freeAddress = true;
             for (User user : users) {
                 String userEmail = user.getEmail();
@@ -83,7 +83,7 @@ public class RegistrationExecutorImpl implements RegistrationExecutor {
                 User user = userDataDTO.getUserExemplar();
                 user.setRole(userStatusType);
                 user.setPass(password);
-                user = USER_DAO.persist(user);
+                user = userDAO.persist(user);
                 user.setRole(userStatusType);
                 userDataDTO.setUserExemplar(user);
             }
@@ -110,11 +110,11 @@ public class RegistrationExecutorImpl implements RegistrationExecutor {
         } else {
             Organization organization = new Organization(name, website, description, organizationType);
             try {
-                organization = ORGANIZATION_DAO.persist(organization);
+                organization = organizationDAO.persist(organization);
                 user.setOrganization(organization);
                 UserStatusType userType = UserStatusType.DIRECTOR;
                 user.setRole(userType);
-                USER_DAO.updateUserOrgIdRole(user);
+                userDAO.updateUserOrgIdRole(user);
             } catch (CustomDAOException e) {
                 throw new CustomExecutorException(e);
             }
@@ -136,7 +136,7 @@ public class RegistrationExecutorImpl implements RegistrationExecutor {
             JobVacancyStatusType statusType = JobVacancyStatusType.NEW;
             JobVacancy jobVacancy = new JobVacancy(organization, vacancyName, vacancyRequirement, statusType);
             try {
-                JOB_VACANCY_DAO.persist(jobVacancy);
+                jobVacancyDAO.persist(jobVacancy);
             } catch (CustomDAOException e) {
                 throw new CustomExecutorException();
             }
@@ -155,7 +155,7 @@ public class RegistrationExecutorImpl implements RegistrationExecutor {
             JobRequestStatusType status = JobRequestStatusType.ADDED;
             jobRequest.setStatus(status);
             try {
-                JOB_REQUEST_DAO.persist(jobRequest);
+                jobRequestDAO.persist(jobRequest);
             } catch (CustomDAOException e) {
                 throw new CustomExecutorException(e);
             }

@@ -7,7 +7,7 @@ import by.molchanov.humanresources.exception.CustomBrokerException;
  * Interface {@link ConcreteCommand} is used for all commands.
  * Contains common method 'execute'.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  */
 public interface ConcreteCommand {
     /**

@@ -9,12 +9,13 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.LO
 /**
  * Class {@link EstablishEnglishLocaleCommand} is used for set english language to representation.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see ConcreteCommand
  */
 public class EstablishEnglishLocaleCommand implements ConcreteCommand {
     private static final EstablishEnglishLocaleCommand EST_ENG_LOC_COMMAND = new EstablishEnglishLocaleCommand();
-    private static final ConcreteCommand FILL_VACANCY_COMMAND = FillContentCommand.getInstance();
+    private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();
+
     private static final String ENGLISH_LOCALE = "en_US";
 
     private EstablishEnglishLocaleCommand() {
@@ -27,7 +28,7 @@ public class EstablishEnglishLocaleCommand implements ConcreteCommand {
 
     @Override
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
-        FILL_VACANCY_COMMAND.execute(requestHolder);
+        fillContentCommand.execute(requestHolder);
         requestHolder.addSessionAttribute(LOCALE, ENGLISH_LOCALE);
     }
 }

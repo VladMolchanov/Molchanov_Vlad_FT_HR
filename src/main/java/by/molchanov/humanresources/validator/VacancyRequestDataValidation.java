@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 /**
  * Class {@link VacancyRequestDataValidation} used for validation of vacancy data.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  */
 public class VacancyRequestDataValidation {
     private static final String REGEX_TEXT = "^[-,.?!'\"():;\\wА-Яа-я\\s]{1,3000}$";

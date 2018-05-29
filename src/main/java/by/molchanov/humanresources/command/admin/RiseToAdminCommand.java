@@ -16,8 +16,8 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.US
 
 public class RiseToAdminCommand implements ConcreteCommand {
     private static final RiseToAdminCommand RISE_TO_ADMIN_COMMAND = new RiseToAdminCommand();
-    private static final ConcreteCommand FILL_CONTENT_COMMAND = FillContentCommand.getInstance();
-    private static final ConfirmExecutor CONFIRM_EXECUTOR = ConfirmExecutorImpl.getInstance();
+    private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();
+    private ConfirmExecutor confirmExecutor = ConfirmExecutorImpl.getInstance();
 
     private RiseToAdminCommand() {
 
@@ -32,11 +32,11 @@ public class RiseToAdminCommand implements ConcreteCommand {
         List<String> usersId = new ArrayList<>(Arrays.asList(requestHolder.getRequestParameter(USER_ID)));
         if (!usersId.isEmpty()) {
             try {
-                CONFIRM_EXECUTOR.riseToAdmin(usersId);
+                confirmExecutor.riseToAdmin(usersId);
             } catch (CustomExecutorException e) {
                 throw new CustomBrokerException(e);
             }
         }
-        FILL_CONTENT_COMMAND.execute(requestHolder);
+        fillContentCommand.execute(requestHolder);
     }
 }

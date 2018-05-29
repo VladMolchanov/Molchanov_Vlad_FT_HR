@@ -20,8 +20,8 @@ public class OperationFactoryTest {
         OperationFactory operationFactory = OperationFactory.getInstance();
         String command = "log_out";
         ResponseType expectedResponseType = ResponseType.FORWARD;
-        ResponseType recievedResponseType;
-        recievedResponseType = operationFactory.getResponseType(command);
-        Assert.assertEquals(expectedResponseType, recievedResponseType);
+        ResponseType receivedResponseType;
+        receivedResponseType = operationFactory.getResponseType(command);
+        Assert.assertEquals(expectedResponseType, receivedResponseType);
     }
 }

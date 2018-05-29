@@ -11,7 +11,7 @@ import java.util.Properties;
  * Class {@link AddressPageConfiguration} - wrapper class is used for read data about
  * page addresses from property file.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  */
 public class AddressPageConfiguration {
     private static final AddressPageConfiguration addressPageConfiguration = new AddressPageConfiguration();

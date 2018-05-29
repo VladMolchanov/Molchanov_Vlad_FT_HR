@@ -6,7 +6,7 @@ import by.molchanov.humanresources.entity.Organization;
 /**
  * Class {@link VacancyDataDTO} is used for transfer data about user between command and service level.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  */
 public class VacancyDataDTO {
     private JobVacancy jobVacancy;

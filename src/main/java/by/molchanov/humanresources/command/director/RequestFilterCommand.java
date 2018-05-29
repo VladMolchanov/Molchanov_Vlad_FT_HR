@@ -13,12 +13,12 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.*;
 /**
  * Class {@link RequestFilterCommand} is used for searching and filter requests content.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see ConcreteCommand
  */
 public class RequestFilterCommand implements ConcreteCommand {
     private static final RequestFilterCommand REQUEST_FILTER_COMMAND = new RequestFilterCommand();
-    private static final ConcreteCommand FILL_CONTENT_COMMAND = FillContentCommand.getInstance();
+    private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();
 
     private static final int FIRST_INDEX = 0;
 
@@ -53,6 +53,6 @@ public class RequestFilterCommand implements ConcreteCommand {
             requestHolder.addSessionAttribute(REQUEST_FILTER_FLAG, true);
             requestHolder.addSessionAttribute(REQUEST_FILTER_DATA, filterDataDTO);
         }
-        FILL_CONTENT_COMMAND.execute(requestHolder);
+        fillContentCommand.execute(requestHolder);
     }
 }

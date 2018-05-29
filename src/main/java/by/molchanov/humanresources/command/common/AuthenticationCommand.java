@@ -13,14 +13,13 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.*;
 /**
  * Class {@link AuthenticationCommand} is used for user login to the system.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see ConcreteCommand
  */
 public class AuthenticationCommand implements ConcreteCommand {
     private static final AuthenticationCommand AUTHENTICATION_COMMAND = new AuthenticationCommand();
-
-    private static final AuthenticationExecutor AUTHENTICATION_EXECUTOR = AuthenticationExecutorImpl.getInstance();
-    private static final ConcreteCommand FILL_VACANCY_COMMAND = FillContentCommand.getInstance();
+    private AuthenticationExecutor authenticationExecutor = AuthenticationExecutorImpl.getInstance();
+    private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();
     private static final int FIRST_POSITION = 0;
 
     private AuthenticationCommand() {
@@ -37,12 +36,12 @@ public class AuthenticationCommand implements ConcreteCommand {
         String email = requestHolder.getSingleRequestParameter(FIRST_POSITION, EMAIL);
         String password = requestHolder.getSingleRequestParameter(FIRST_POSITION, PASS);
         try {
-            userDataDTO = AUTHENTICATION_EXECUTOR.checkUserAccessory(email, password);
+            userDataDTO = authenticationExecutor.checkUserAccessory(email, password);
             if (userDataDTO.getUserExemplar() != null) {
                 requestHolder.addSessionAttribute(ROLE, userDataDTO.getUserExemplar().getRole().getValue());
                 requestHolder.addSessionAttribute(USER_INFO, userDataDTO.getUserExemplar());
             }
-            FILL_VACANCY_COMMAND.execute(requestHolder);
+            fillContentCommand.execute(requestHolder);
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
         }

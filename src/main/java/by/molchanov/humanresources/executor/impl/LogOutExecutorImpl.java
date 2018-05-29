@@ -10,7 +10,7 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.*;
 /**
  * Class {@link LogOutExecutorImpl} used for log out from system.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see LogOutExecutor
  */
 public class LogOutExecutorImpl implements LogOutExecutor {

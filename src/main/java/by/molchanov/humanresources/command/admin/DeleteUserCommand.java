@@ -17,13 +17,13 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.US
 /**
  * Class {@link DeleteUserCommand} is used for delete user from system.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see ConcreteCommand
  */
 public class DeleteUserCommand implements ConcreteCommand {
     private static final DeleteUserCommand DELETE_USER_COMMAND = new DeleteUserCommand();
-    private static final ConcreteCommand FILL_CONTENT_COMMAND = FillContentCommand.getInstance();
-    private static final DeleteCloseExecutor DELETE_EXECUTOR = DeleteCloseExecutorImpl.getInstance();
+    private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();
+    private DeleteCloseExecutor deleteCloseExecutor = DeleteCloseExecutorImpl.getInstance();
 
     private DeleteUserCommand() {
 
@@ -38,11 +38,11 @@ public class DeleteUserCommand implements ConcreteCommand {
         List<String> usersId = new ArrayList<>(Arrays.asList(requestHolder.getRequestParameter(USER_ID)));
         if (!usersId.isEmpty()) {
             try {
-                DELETE_EXECUTOR.deleteUser(usersId);
+                deleteCloseExecutor.deleteUser(usersId);
             } catch (CustomExecutorException e) {
                 throw new CustomBrokerException(e);
             }
         }
-        FILL_CONTENT_COMMAND.execute(requestHolder);
+        fillContentCommand.execute(requestHolder);
     }
 }

@@ -12,7 +12,7 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.HA
 /**
  * Class {@link RequestHolder} - wrapper class is used for read and store data from servlet request.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  */
 public class RequestHolder {
     private static final int PRIMARY_HASH = 0;

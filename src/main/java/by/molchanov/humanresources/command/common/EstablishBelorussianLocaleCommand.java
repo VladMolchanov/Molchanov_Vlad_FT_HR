@@ -10,12 +10,13 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.LO
 /**
  * Class {@link EstablishBelorussianLocaleCommand} is used for set belorussian language to representation.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see ConcreteCommand
  */
 public class EstablishBelorussianLocaleCommand implements ConcreteCommand {
     private static final EstablishBelorussianLocaleCommand EST_BEL_LOC_COMMAND = new EstablishBelorussianLocaleCommand();
-    private static final ConcreteCommand FILL_VACANCY_COMMAND = FillContentCommand.getInstance();
+    private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();
+
     private static final String BELORUSSIAN_LOCALE = "be_BY";
 
     private EstablishBelorussianLocaleCommand() {
@@ -28,7 +29,7 @@ public class EstablishBelorussianLocaleCommand implements ConcreteCommand {
 
     @Override
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
-        FILL_VACANCY_COMMAND.execute(requestHolder);
+        fillContentCommand.execute(requestHolder);
         requestHolder.addSessionAttribute(LOCALE, BELORUSSIAN_LOCALE);
     }
 }

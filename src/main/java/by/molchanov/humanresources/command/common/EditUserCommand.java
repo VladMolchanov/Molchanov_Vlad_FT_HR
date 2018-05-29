@@ -13,8 +13,8 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.*;
 
 public class EditUserCommand implements ConcreteCommand {
     private static final EditUserCommand EDIT_USER_COMMAND = new EditUserCommand();
-    private static final ConcreteCommand FILL_CONTENT_COMMAND = FillContentCommand.getInstance();
-    private static final EditExecutor EDIT_EXECUTOR = EditExecutorImpl.getInstance();
+    private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();
+    private EditExecutor editExecutor = EditExecutorImpl.getInstance();
 
     private static final int FIRST_INDEX = 0;
 
@@ -38,8 +38,8 @@ public class EditUserCommand implements ConcreteCommand {
         userDataDTO.setUserExemplar(user);
         userDataDTO.setAltEmail(email);
         try {
-            EDIT_EXECUTOR.editUser(userDataDTO);
-            FILL_CONTENT_COMMAND.execute(requestHolder);
+            editExecutor.editUser(userDataDTO);
+            fillContentCommand.execute(requestHolder);
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
         }

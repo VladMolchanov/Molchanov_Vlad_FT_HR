@@ -16,14 +16,14 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.*;
 /**
  * Class {@link SendRequestAnswerCommand} is used for send answer message to aspirant.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see ConcreteCommand
  */
 public class SendRequestAnswerCommand implements ConcreteCommand {
     private static final SendRequestAnswerCommand SEND_REPLY_COMMAND = new SendRequestAnswerCommand();
-    private static final ConcreteCommand FILL_VACANCY_COMMAND = FillContentCommand.getInstance();
-    private static final SendMessageExecutor SEND_MESSAGE_EXECUTOR = SendMessageExecutorImpl.getInstance();
-    private static final ConfirmExecutor CONFIRM_EXECUTOR = ConfirmExecutorImpl.getInstance();
+    private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();
+    private SendMessageExecutor sendMessageExecutor = SendMessageExecutorImpl.getInstance();
+    private ConfirmExecutor confirmExecutor = ConfirmExecutorImpl.getInstance();
 
     private static final int FIRST_INDEX = 0;
 
@@ -48,9 +48,9 @@ public class SendRequestAnswerCommand implements ConcreteCommand {
         messageDataDTO.setReceiverEmail(aspirantEmail);
         messageDataDTO.setVacancyName(vacName);
         try {
-            SEND_MESSAGE_EXECUTOR.sendRequestAnswer(messageDataDTO);
-            CONFIRM_EXECUTOR.approveRequest(requestId);
-            FILL_VACANCY_COMMAND.execute(requestHolder);
+            sendMessageExecutor.sendRequestAnswer(messageDataDTO);
+            confirmExecutor.approveRequest(requestId);
+            fillContentCommand.execute(requestHolder);
             requestHolder.addRequestAttribute(INFO_MESSAGE, messageDataDTO.getInfoMessage());
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);

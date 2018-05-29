@@ -13,13 +13,13 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.RE
 /**
  * Class {@link CloseRequestCommand} is used for rejecting aspirant request (set another request status)  .
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see ConcreteCommand
  */
 public class CloseRequestCommand implements ConcreteCommand {
     private static final CloseRequestCommand CLOSE_REQUEST_COMMAND = new CloseRequestCommand();
-    private static final ConcreteCommand FILL_CONTENT_COMMAND = FillContentCommand.getInstance();
-    private static final DeleteCloseExecutor DELETE_CLOSE_EXECUTOR = DeleteCloseExecutorImpl.getInstance();
+    private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();
+    private DeleteCloseExecutor deleteCloseExecutor = DeleteCloseExecutorImpl.getInstance();
 
     private static final int FIRST_INDEX = 0;
 
@@ -35,8 +35,8 @@ public class CloseRequestCommand implements ConcreteCommand {
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
         String requestId = requestHolder.getSingleRequestParameter(FIRST_INDEX, REQUEST_ID);
         try {
-            DELETE_CLOSE_EXECUTOR.closeRequest(requestId);
-            FILL_CONTENT_COMMAND.execute(requestHolder);
+            deleteCloseExecutor.closeRequest(requestId);
+            fillContentCommand.execute(requestHolder);
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
         }

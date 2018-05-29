@@ -16,7 +16,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Class {@link AESEncryption} used for string encryption.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  */
 public class AESEncryption {
     private static final Logger LOGGER = LogManager.getLogger();

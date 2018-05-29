@@ -16,13 +16,13 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.LA
 /**
  * Class {@link UserRegistrationCommand} is used for new user registration.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see ConcreteCommand
  */
 public class UserRegistrationCommand implements ConcreteCommand {
     private static final UserRegistrationCommand USER_REGISTRATION_COMMAND = new UserRegistrationCommand();
-    private static final RegistrationExecutor REGISTRATION_EXECUTOR = RegistrationExecutorImpl.getInstance();
-    private static final ConcreteCommand FILL_VACANCY_COMMAND = FillContentCommand.getInstance();
+    private RegistrationExecutor registrationExecutor = RegistrationExecutorImpl.getInstance();
+    private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();
     private static final int FIRST_INDEX = 0;
 
     private UserRegistrationCommand() {
@@ -49,8 +49,8 @@ public class UserRegistrationCommand implements ConcreteCommand {
         userDataDTO.setUserExemplar(user);
         userDataDTO.setRepeatPassword(repeatPass);
         try {
-            REGISTRATION_EXECUTOR.userSignUp(userDataDTO);
-            FILL_VACANCY_COMMAND.execute(requestHolder);
+            registrationExecutor.userSignUp(userDataDTO);
+            fillContentCommand.execute(requestHolder);
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
         }

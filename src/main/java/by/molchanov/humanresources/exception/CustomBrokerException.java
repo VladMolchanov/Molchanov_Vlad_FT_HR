@@ -3,7 +3,7 @@ package by.molchanov.humanresources.exception;
 /**
  * Class {@link CustomBrokerException} is used to store command level exceptions.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see Exception
  */
 public class CustomBrokerException extends Exception {

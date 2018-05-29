@@ -13,13 +13,13 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.VA
 /**
  * Class {@link DeleteVacancyCommand} is used for delete unacceptable vacancy from system.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see  ConcreteCommand
  */
 public class DeleteVacancyCommand implements ConcreteCommand {
     private static final DeleteVacancyCommand DELETE_VACANCY_COMMAND = new DeleteVacancyCommand();
-    private static final ConcreteCommand FILL_VACANCY_COMMAND = FillContentCommand.getInstance();
-    private static final DeleteCloseExecutor DELETE_EXECUTOR = DeleteCloseExecutorImpl.getInstance();
+    private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();
+    private DeleteCloseExecutor deleteCloseExecutor = DeleteCloseExecutorImpl.getInstance();
 
     private static final int FIRST_INDEX = 0;
 
@@ -35,8 +35,8 @@ public class DeleteVacancyCommand implements ConcreteCommand {
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
         String vacancyId = requestHolder.getSingleRequestParameter(FIRST_INDEX, VACANCY_ID);
         try {
-            DELETE_EXECUTOR.deleteVacancy(vacancyId);
-            FILL_VACANCY_COMMAND.execute(requestHolder);
+            deleteCloseExecutor.deleteVacancy(vacancyId);
+            fillContentCommand.execute(requestHolder);
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
         }

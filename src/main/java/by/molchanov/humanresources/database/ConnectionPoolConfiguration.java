@@ -11,7 +11,7 @@ import java.util.Properties;
  * Class {@link ConnectionPoolConfiguration} - wrapper class is used for read data about
  * database configuration from property file.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  */
 class ConnectionPoolConfiguration {
     private static final ConnectionPoolConfiguration connectionPoolConfiguration = new ConnectionPoolConfiguration();

@@ -13,13 +13,13 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.VA
 /**
  * Class {@link CloseVacancyCommand} is used for closing job vacancy (set another vacancy status).
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see ConcreteCommand
  */
 public class CloseVacancyCommand implements ConcreteCommand {
     private static final CloseVacancyCommand CLOSE_VACANCY_COMMAND = new CloseVacancyCommand();
-    private static final ConcreteCommand FILL_CONTENT_COMMAND = FillContentCommand.getInstance();
-    private static final DeleteCloseExecutor DELETE_CLOSE_EXECUTOR = DeleteCloseExecutorImpl.getInstance();
+    private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();
+    private DeleteCloseExecutor deleteCloseExecutor = DeleteCloseExecutorImpl.getInstance();
 
     private static final int FIRST_INDEX = 0;
 
@@ -35,8 +35,8 @@ public class CloseVacancyCommand implements ConcreteCommand {
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
         String vacancyId = requestHolder.getSingleRequestParameter(FIRST_INDEX, VACANCY_ID);
         try {
-            DELETE_CLOSE_EXECUTOR.closeVacancy(vacancyId);
-            FILL_CONTENT_COMMAND.execute(requestHolder);
+            deleteCloseExecutor.closeVacancy(vacancyId);
+            fillContentCommand.execute(requestHolder);
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
         }

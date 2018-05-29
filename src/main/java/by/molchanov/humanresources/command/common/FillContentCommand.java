@@ -21,13 +21,13 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.*;
 /**
  * Class {@link FillContentCommand} is used for create page content, such as request, vacancies and other.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see ConcreteCommand
  */
 public class FillContentCommand implements ConcreteCommand {
     private static final FillContentCommand FILL_VACANCY_COMMAND = new FillContentCommand();
-    private static final FillContentExecutor FILL_CONTENT_EXECUTOR = FillContentExecutorImpl.getInstance();
-    private static final FilterExecutor FILTER_EXECUTOR = FilterExecutorImpl.getInstance();
+    private FillContentExecutor fillContentExecutor = FillContentExecutorImpl.getInstance();
+    private FilterExecutor filterExecutor = FilterExecutorImpl.getInstance();
 
     private static final String ROLE_ADMIN = "admin";
     private static final String ROLE_DIRECTOR = "director";
@@ -97,11 +97,11 @@ public class FillContentCommand implements ConcreteCommand {
         try {
             if (reqFilterFlag != null && reqFilterFlag) {
                 filterDataDTO = (FilterDataDTO) requestHolder.getSessionAttribute(REQUEST_FILTER_DATA);
-                requests = FILTER_EXECUTOR.filterRequest(filterDataDTO, userRole, startRequestNumber, requestsQuantity);
-                requestsCount = FILL_CONTENT_EXECUTOR.findRequestsCount(userRole, orgId, emptySearchField);
+                requests = filterExecutor.filterRequest(filterDataDTO, userRole, startRequestNumber, requestsQuantity);
+                requestsCount = fillContentExecutor.findRequestsCount(userRole, orgId, emptySearchField);
             } else {
-                requests = FILL_CONTENT_EXECUTOR.fillRequest(userRole, orgId, emptySearchField, startRequestNumber, requestsQuantity);
-                requestsCount = FILL_CONTENT_EXECUTOR.findRequestsCount(userRole, orgId, emptySearchField);
+                requests = fillContentExecutor.fillRequest(userRole, orgId, emptySearchField, startRequestNumber, requestsQuantity);
+                requestsCount = fillContentExecutor.findRequestsCount(userRole, orgId, emptySearchField);
             }
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
@@ -134,11 +134,11 @@ public class FillContentCommand implements ConcreteCommand {
         try {
             if (vacFilterFlag != null && vacFilterFlag) {
                 filterDataDTO = (FilterDataDTO) requestHolder.getSessionAttribute(VAC_FILTER_DATA);
-                vacancies = FILTER_EXECUTOR.filterVacancy(filterDataDTO, userRole, startVacancyNumber, vacanciesQuantity);
-                vacanciesCount = FILL_CONTENT_EXECUTOR.findVacanciesCount(userRole, filterDataDTO.getSearchField());
+                vacancies = filterExecutor.filterVacancy(filterDataDTO, userRole, startVacancyNumber, vacanciesQuantity);
+                vacanciesCount = fillContentExecutor.findVacanciesCount(userRole, filterDataDTO.getSearchField());
             } else {
-                vacancies = FILL_CONTENT_EXECUTOR.fillVacancy(userRole, emptySearchField, startVacancyNumber, vacanciesQuantity);
-                vacanciesCount = FILL_CONTENT_EXECUTOR.findVacanciesCount(userRole, emptySearchField);
+                vacancies = fillContentExecutor.fillVacancy(userRole, emptySearchField, startVacancyNumber, vacanciesQuantity);
+                vacanciesCount = fillContentExecutor.findVacanciesCount(userRole, emptySearchField);
             }
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
@@ -166,8 +166,8 @@ public class FillContentCommand implements ConcreteCommand {
             usersQuantity = 10;
         }
         try {
-                users = FILL_CONTENT_EXECUTOR.fillUser(userRole, startUserNumber, usersQuantity);
-                usersCount = FILL_CONTENT_EXECUTOR.findUsersCount(userRole);
+                users = fillContentExecutor.fillUser(userRole, startUserNumber, usersQuantity);
+                usersCount = fillContentExecutor.findUsersCount(userRole);
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
         }
@@ -193,8 +193,8 @@ public class FillContentCommand implements ConcreteCommand {
             organizationsQuantity = 10;
         }
         try {
-            organizations = FILL_CONTENT_EXECUTOR.fillOrganization(startOrganizationNumber, organizationsQuantity);
-            organizationsCount = FILL_CONTENT_EXECUTOR.findOrganizationsCount();
+            organizations = fillContentExecutor.fillOrganization(startOrganizationNumber, organizationsQuantity);
+            organizationsCount = fillContentExecutor.findOrganizationsCount();
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
         }

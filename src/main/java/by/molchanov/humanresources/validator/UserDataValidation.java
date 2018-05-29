@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 /**
  * Class {@link UserDataValidation} used for validation of user data.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  */
 public class UserDataValidation {
     private static final String REGEX_EMAIL_SPLITTER = "[@]";

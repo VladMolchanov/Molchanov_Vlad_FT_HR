@@ -28,7 +28,7 @@ import static by.molchanov.humanresources.validator.VacancyRequestDataValidation
 /**
  * Class {@link SendMessageExecutorImpl} used for sending message.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see SendMessageExecutor
  */
 public class SendMessageExecutorImpl implements SendMessageExecutor {

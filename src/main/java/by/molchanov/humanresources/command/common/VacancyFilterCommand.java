@@ -10,12 +10,12 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.*;
 /**
  * Class {@link VacancyFilterCommand} is used for searching and filter vacancy content.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see ConcreteCommand
  */
 public class VacancyFilterCommand implements ConcreteCommand {
     private static final VacancyFilterCommand VACANCY_FILTER_COMMAND = new VacancyFilterCommand();
-    private static final ConcreteCommand FILL_CONTENT_COMMAND = FillContentCommand.getInstance();
+    private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();
 
     private static final int FIRST_INDEX = 0;
 
@@ -43,6 +43,6 @@ public class VacancyFilterCommand implements ConcreteCommand {
             requestHolder.addSessionAttribute(VAC_FILTER_FLAG, true);
             requestHolder.addSessionAttribute(VAC_FILTER_DATA, filterDataDTO);
         }
-        FILL_CONTENT_COMMAND.execute(requestHolder);
+        fillContentCommand.execute(requestHolder);
     }
 }

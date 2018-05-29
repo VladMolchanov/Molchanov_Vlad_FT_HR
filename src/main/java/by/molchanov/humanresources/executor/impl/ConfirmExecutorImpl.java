@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Class {@link ConfirmExecutorImpl} used for confirm records.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see ConfirmExecutor
  */
 public class ConfirmExecutorImpl implements ConfirmExecutor {

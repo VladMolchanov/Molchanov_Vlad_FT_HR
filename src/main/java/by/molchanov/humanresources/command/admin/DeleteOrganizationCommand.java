@@ -16,8 +16,8 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.OR
 
 public class DeleteOrganizationCommand implements ConcreteCommand {
     private static final DeleteOrganizationCommand DELETE_ORGANIZATION_COMMAND = new DeleteOrganizationCommand();
-    private static final ConcreteCommand FILL_CONTENT_COMMAND = FillContentCommand.getInstance();
-    private static final DeleteCloseExecutor DELETE_EXECUTOR = DeleteCloseExecutorImpl.getInstance();
+    private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();
+    private DeleteCloseExecutor deleteCloseExecutor = DeleteCloseExecutorImpl.getInstance();
 
     private DeleteOrganizationCommand() {
 
@@ -32,11 +32,11 @@ public class DeleteOrganizationCommand implements ConcreteCommand {
         List<String> organizationsId = new ArrayList<>(Arrays.asList(requestHolder.getRequestParameter(ORGANIZATION_ID)));
         if (!organizationsId.isEmpty()) {
             try {
-                DELETE_EXECUTOR.deleteOrganization(organizationsId);
+                deleteCloseExecutor.deleteOrganization(organizationsId);
             } catch (CustomExecutorException e) {
                 throw new CustomBrokerException(e);
             }
         }
-        FILL_CONTENT_COMMAND.execute(requestHolder);
+        fillContentCommand.execute(requestHolder);
     }
 }

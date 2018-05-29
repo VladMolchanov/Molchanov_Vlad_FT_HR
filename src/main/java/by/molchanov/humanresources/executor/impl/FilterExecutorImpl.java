@@ -21,12 +21,12 @@ import static by.molchanov.humanresources.entity.JobRequest.COMPARE_BY_VAC_NAME;
 /**
  * Class {@link FilterExecutorImpl} used for searching and filter records.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see FilterExecutor
  */
 public class FilterExecutorImpl implements FilterExecutor {
     private static final FilterExecutorImpl VACANCY_FILTER_EXECUTOR = new FilterExecutorImpl();
-    private static final FillContentExecutor FILL_CONTENT_EXECUTOR = FillContentExecutorImpl.getInstance();
+    private FillContentExecutor fillContentExecutor = FillContentExecutorImpl.getInstance();
 
     private static final String INCREASE = "increase";
     private static final String DECREASE = "decrease";
@@ -48,7 +48,7 @@ public class FilterExecutorImpl implements FilterExecutor {
         String searchField = filterDataDTO.getSearchField();
         boolean sortDirectionTypeFlag = setSortDirectionTypeFlag(sortDirectionType);
         ColumnForSortingType sortingColumnType = ColumnForSortingType.valueOf(sortColumn.toUpperCase());
-        List<JobVacancy> vacancies = FILL_CONTENT_EXECUTOR.fillVacancy(userRole, searchField, startVacancyNumber, vacanciesQuantity);
+        List<JobVacancy> vacancies = fillContentExecutor.fillVacancy(userRole, searchField, startVacancyNumber, vacanciesQuantity);
         executeVacancySort(sortingColumnType, vacancies, sortDirectionTypeFlag);
         return vacancies;
     }
@@ -62,7 +62,7 @@ public class FilterExecutorImpl implements FilterExecutor {
         int orgId = filterDataDTO.getOrgId();
         boolean sortDirectionTypeFlag = setSortDirectionTypeFlag(sortDirectionType);
         ColumnForSortingType sortingColumnType = ColumnForSortingType.valueOf(sortColumn.toUpperCase());
-        List<JobRequest> requests = FILL_CONTENT_EXECUTOR.fillRequest(userRole, orgId, searchField , startRequestNumber, requestsQuantity);
+        List<JobRequest> requests = fillContentExecutor.fillRequest(userRole, orgId, searchField , startRequestNumber, requestsQuantity);
         executeRequestSort(sortingColumnType, requests, sortDirectionTypeFlag);
         return requests;
     }

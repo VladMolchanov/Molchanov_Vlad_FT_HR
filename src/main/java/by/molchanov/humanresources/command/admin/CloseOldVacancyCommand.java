@@ -11,27 +11,27 @@ import by.molchanov.humanresources.executor.impl.DeleteCloseExecutorImpl;
 /**
  * Class {@link CloseOldVacancyCommand} is used for close old vacancy (published more than 15 days ago).
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see ConcreteCommand
  */
 public class CloseOldVacancyCommand implements ConcreteCommand {
-    private static final CloseOldVacancyCommand DELETE_OLD_VACANCY_COMMAND = new CloseOldVacancyCommand();
-    private static final DeleteCloseExecutor DELETE_CLOSE_EXECUTOR = DeleteCloseExecutorImpl.getInstance();
-    private static final ConcreteCommand FILL_CONTENT_COMMAND = FillContentCommand.getInstance();
+    private static final CloseOldVacancyCommand CLOSE_OLD_VACANCY_COMMAND = new CloseOldVacancyCommand();
+    private DeleteCloseExecutor deleteCloseExecutor = DeleteCloseExecutorImpl.getInstance();
+    private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();
 
     private CloseOldVacancyCommand() {
 
     }
 
     public static CloseOldVacancyCommand getInstance() {
-        return DELETE_OLD_VACANCY_COMMAND;
+        return CLOSE_OLD_VACANCY_COMMAND;
     }
 
     @Override
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
         try {
-            DELETE_CLOSE_EXECUTOR.closeOldVacancy();
-            FILL_CONTENT_COMMAND.execute(requestHolder);
+            deleteCloseExecutor.closeOldVacancy();
+            fillContentCommand.execute(requestHolder);
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
         }

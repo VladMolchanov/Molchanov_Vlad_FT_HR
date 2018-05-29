@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Class {@link DeleteCloseExecutorImpl} used for delete or close records.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see DeleteCloseExecutor
  */
 public class DeleteCloseExecutorImpl implements DeleteCloseExecutor {

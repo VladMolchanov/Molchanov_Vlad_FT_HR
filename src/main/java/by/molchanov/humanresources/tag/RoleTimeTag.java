@@ -9,7 +9,7 @@ import java.util.GregorianCalendar;
 /**
  * Class {@link RoleTimeTag} used for display user role in system and current time.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see TagSupport
  */
 public class RoleTimeTag extends TagSupport {

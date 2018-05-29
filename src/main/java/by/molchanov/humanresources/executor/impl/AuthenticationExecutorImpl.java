@@ -20,7 +20,7 @@ import static by.molchanov.humanresources.executor.PropertyMessageVariablesName.
 /**
  * Class {@link AuthenticationExecutorImpl} used for user authentication.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see AuthenticationExecutor
  */
 public class AuthenticationExecutorImpl implements AuthenticationExecutor {

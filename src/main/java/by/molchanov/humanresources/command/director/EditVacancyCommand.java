@@ -14,8 +14,8 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.*;
 
 public class EditVacancyCommand implements ConcreteCommand {
     private static final EditVacancyCommand EDIT_VACANCY_COMMAND = new EditVacancyCommand();
-    private static final ConcreteCommand FILL_CONTENT_COMMAND = FillContentCommand.getInstance();
-    private static final EditExecutor EDIT_EXECUTOR = EditExecutorImpl.getInstance();
+    private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();
+    private EditExecutor editExecutor = EditExecutorImpl.getInstance();
 
     private static final int FIRST_INDEX = 0;
 
@@ -39,8 +39,8 @@ public class EditVacancyCommand implements ConcreteCommand {
         vacancyDataDTO.setJobVacancy(jobVacancy);
         vacancyDataDTO.setVacancyId(vacancyId);
         try {
-            EDIT_EXECUTOR.editVacancy(vacancyDataDTO);
-            FILL_CONTENT_COMMAND.execute(requestHolder);
+            editExecutor.editVacancy(vacancyDataDTO);
+            fillContentCommand.execute(requestHolder);
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
         }

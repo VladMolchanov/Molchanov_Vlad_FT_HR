@@ -11,13 +11,13 @@ import java.util.List;
 /**
  * Class {@link LogOutCommand} is used for user logout from system.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see ConcreteCommand
  */
 public class LogOutCommand implements ConcreteCommand {
     private static final LogOutCommand LOG_OUT_COMMAND = new LogOutCommand();
-    private static final LogOutExecutor LOG_OUT_EXECUTOR = LogOutExecutorImpl.getInstance();
-    private static final ConcreteCommand FILL_CONTENT_COMMAND = FillContentCommand.getInstance();
+    private LogOutExecutor logOutExecutor = LogOutExecutorImpl.getInstance();
+    private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();
 
     private LogOutCommand() {
 
@@ -30,8 +30,8 @@ public class LogOutCommand implements ConcreteCommand {
     @Override
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
         List<String> attributeForDelete;
-        attributeForDelete = LOG_OUT_EXECUTOR.logOut();
+        attributeForDelete = logOutExecutor.logOut();
         requestHolder.removeSessionAttribute(attributeForDelete.toArray(new String[attributeForDelete.size()]));
-        FILL_CONTENT_COMMAND.execute(requestHolder);
+        fillContentCommand.execute(requestHolder);
     }
 }

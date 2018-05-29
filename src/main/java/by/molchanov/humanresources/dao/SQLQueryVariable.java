@@ -29,7 +29,6 @@ public class SQLQueryVariable {
     public static final String USERS_COUNT_SELECT = "SELECT COUNT(u_id) FROM user WHERE user.u_role != ?";
     public static final String USERS_COUNT = "COUNT(u_id)";
 
-
     public static final String ORGANIZATION_QUERY_SELECT = "SELECT o_id, o_name, o_description, o_website, o_type FROM organization ";
     public static final String ORGANIZATION_QUERY_SELECT_PART = "SELECT o_id, o_name, o_description, o_website, o_type FROM organization LIMIT ? , ?";
     public static final String ORGANIZATION_QUERY_UPDATE = "UPDATE organization SET o_name = ?, o_website = ?, o_description = ?, o_type = ? WHERE o_id = ";
@@ -62,7 +61,6 @@ public class SQLQueryVariable {
             "INNER JOIN job_vacancy ON job_request.jr_job_vacancy_id = job_vacancy.jv_id " +
             "WHERE job_request.jr_status != ? AND job_vacancy.jv_organization_id = ? AND job_vacancy.jv_name LIKE ?";
     public static final String JOB_REQUESTS_COUNT = "COUNT(jr_id)";
-
 
     public static final String JOB_VACANCY_QUERY_SELECT = "SELECT jv_id, jv_organization_id, jv_name, jv_upload_date, jv_requirement, jv_status FROM job_vacancy ";
     public static final String JOB_VACANCY_QUERY_SELECT_VACANCY_CONTENT = "SELECT job_vacancy.jv_id, job_vacancy.jv_name, job_vacancy.jv_upload_date," +

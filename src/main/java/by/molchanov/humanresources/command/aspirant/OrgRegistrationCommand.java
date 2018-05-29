@@ -18,13 +18,14 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.TY
 /**
  * Class {@link OrgRegistrationCommand} is used for new organization registration.
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  * @see ConcreteCommand
  */
 public class OrgRegistrationCommand implements ConcreteCommand {
     private static final OrgRegistrationCommand ORG_REGISTRATION_COMMAND = new OrgRegistrationCommand();
-    private static final RegistrationExecutor REGISTRATION_EXECUTOR = RegistrationExecutorImpl.getInstance();
-    private static final ConcreteCommand FILL_VACANCY_COMMAND = FillContentCommand.getInstance();
+    private RegistrationExecutor registrationExecutor = RegistrationExecutorImpl.getInstance();
+    private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();
+
     private static final int FIRST_INDEX = 0;
 
     private OrgRegistrationCommand() {
@@ -51,10 +52,10 @@ public class OrgRegistrationCommand implements ConcreteCommand {
         orgDirector.setOrganization(organization);
         orgDataDTO.setOrgDirector(orgDirector);
         try {
-            REGISTRATION_EXECUTOR.orgSignUp(orgDataDTO);
+            registrationExecutor.orgSignUp(orgDataDTO);
             requestHolder.addSessionAttribute(ROLE, orgDataDTO.getOrgDirector().getRole().getValue());
             requestHolder.addSessionAttribute(USER_INFO, orgDataDTO.getOrgDirector());
-            FILL_VACANCY_COMMAND.execute(requestHolder);
+            fillContentCommand.execute(requestHolder);
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
         }
