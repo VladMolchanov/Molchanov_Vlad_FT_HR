@@ -40,7 +40,7 @@ public class VacancyFilterCommand implements ConcreteCommand {
             filterDataDTO.setSortColumn(sortColumn);
             filterDataDTO.setSearchField(searchField);
             filterDataDTO.setSortDirectionType(sortDirectionType);
-            requestHolder.addSessionAttribute(VAC_FILTER_FLAG, true);
+            requestHolder.addSessionAttribute(VAC_FILTER_FLAG, Boolean.TRUE);
             requestHolder.addSessionAttribute(VAC_FILTER_DATA, filterDataDTO);
         }
         fillContentCommand.execute(requestHolder);

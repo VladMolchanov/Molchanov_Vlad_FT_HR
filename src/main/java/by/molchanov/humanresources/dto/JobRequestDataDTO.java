@@ -2,12 +2,14 @@ package by.molchanov.humanresources.dto;
 
 import by.molchanov.humanresources.entity.JobRequest;
 
+import java.io.Serializable;
+
 /**
  * Class {@link JobRequestDataDTO} is used for transfer data about job request between command and service level.
  *
  * @author Molchanov Vladislav
  */
-public class JobRequestDataDTO {
+public class JobRequestDataDTO implements Serializable {
     private JobRequest jobRequest;
     private String infoMessage;
     private int vacancyId;

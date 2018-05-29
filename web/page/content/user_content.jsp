@@ -45,7 +45,7 @@
                 <td>${user.email}</td>
                 <td>${user.firstName}</td>
                 <td>${user.lastName}</td>
-                <td>${user.role}</td>
+                <td><fmt:message key="${user.role.value}"/></td>
                 <td>${user.organization.name}</td>
             </tr>
         </c:forEach>

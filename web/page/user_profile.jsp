@@ -50,7 +50,7 @@
                     </c:choose>
 
                     <div id="org-register-form" class="collapse">
-                        <div id="sign-up-org-form"><c:import url="register_org.jsp"/></div>
+                        <div id="sign-up-org-form"><c:import url="registration/register_org.jsp"/></div>
                     </div>
                 </div>
 

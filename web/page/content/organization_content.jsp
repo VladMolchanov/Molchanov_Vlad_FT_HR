@@ -40,7 +40,7 @@
                 <td>${organization.name}</td>
                 <td>${organization.description}</td>
                 <td>${organization.website}</td>
-                <td>${organization.type}</td>
+                <td><fmt:message key="${organization.type.value}"/></td>
             </tr>
         </c:forEach>
     </table>

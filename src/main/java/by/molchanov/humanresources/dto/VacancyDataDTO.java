@@ -1,14 +1,15 @@
 package by.molchanov.humanresources.dto;
 
 import by.molchanov.humanresources.entity.JobVacancy;
-import by.molchanov.humanresources.entity.Organization;
+
+import java.io.Serializable;
 
 /**
  * Class {@link VacancyDataDTO} is used for transfer data about user between command and service level.
  *
  * @author Molchanov Vladislav
  */
-public class VacancyDataDTO {
+public class VacancyDataDTO implements Serializable {
     private JobVacancy jobVacancy;
     private String infoMessage;
     private String vacancyId;

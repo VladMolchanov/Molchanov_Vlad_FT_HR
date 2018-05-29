@@ -1,6 +1,8 @@
 package by.molchanov.humanresources.dto;
 
-public class MessageDataDTO {
+import java.io.Serializable;
+
+public class MessageDataDTO implements Serializable {
     private String messageText;
     private String messageTheme;
     private String receiverEmail;

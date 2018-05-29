@@ -1,10 +1,12 @@
 package by.molchanov.humanresources.dto;
 
-public class FilterDataDTO {
-    String sortColumn;
-    String sortDirectionType;
-    String searchField;
-    int orgId;
+import java.io.Serializable;
+
+public class FilterDataDTO implements Serializable {
+    private String sortColumn;
+    private String sortDirectionType;
+    private String searchField;
+    private int orgId;
 
     public String getSortColumn() {
         return sortColumn;

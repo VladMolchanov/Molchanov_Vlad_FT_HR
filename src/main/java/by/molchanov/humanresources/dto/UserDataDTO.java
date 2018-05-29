@@ -2,12 +2,14 @@ package by.molchanov.humanresources.dto;
 
 import by.molchanov.humanresources.entity.User;
 
+import java.io.Serializable;
+
 /**
  * Class {@link UserDataDTO} is used for transfer data about user between command and service level.
  *
  * @author Molchanov Vladislav
  */
-public class UserDataDTO {
+public class UserDataDTO implements Serializable {
     private User userExemplar;
     private String infoMessage;
     private String repeatPassword;

@@ -51,13 +51,12 @@ public class Controller extends HttpServlet {
             requestHolder.update(request);
         } catch (CustomBrokerException e) {
             LOGGER.warn(e.getMessage(), e);
-            throw new IOException(e);
+            responseType = ResponseType.REDIRECT;
         }
         if (responseType == ResponseType.FORWARD) {
             getServletContext().getRequestDispatcher(MAIN_PAGE).forward(request, response);
         } else if (responseType == ResponseType.REDIRECT) {
             response.sendRedirect(MAIN_PAGE);
-
         }
     }
 }

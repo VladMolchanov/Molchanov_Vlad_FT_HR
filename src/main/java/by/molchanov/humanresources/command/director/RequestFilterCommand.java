@@ -50,7 +50,7 @@ public class RequestFilterCommand implements ConcreteCommand {
             filterDataDTO.setSortDirectionType(sortDirectionType);
             filterDataDTO.setOrgId(orgId);
             filterDataDTO.setSearchField(searchField);
-            requestHolder.addSessionAttribute(REQUEST_FILTER_FLAG, true);
+            requestHolder.addSessionAttribute(REQUEST_FILTER_FLAG, Boolean.TRUE);
             requestHolder.addSessionAttribute(REQUEST_FILTER_DATA, filterDataDTO);
         }
         fillContentCommand.execute(requestHolder);

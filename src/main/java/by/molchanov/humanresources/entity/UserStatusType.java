@@ -6,7 +6,7 @@ package by.molchanov.humanresources.entity;
  * @author Molchanov Vladislav
  */
 public enum UserStatusType {
-    ADMIN("admin"), ASPIRANT("aspirant"), WORKER("worker"), DIRECTOR("director");
+    ADMIN("admin"), ASPIRANT("aspirant"), DIRECTOR("director");
 
     private String value;
 

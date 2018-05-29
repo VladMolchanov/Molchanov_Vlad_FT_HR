@@ -4,6 +4,7 @@ import by.molchanov.humanresources.exception.CustomBrokerException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.Serializable;
 import java.util.*;
 
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.COMMAND;
@@ -64,10 +65,6 @@ public class RequestHolder {
         sessionAttribute.put(key, value);
     }
 
-    public Object getRequestAttribute(String key) {
-        return requestAttribute.get(key);
-    }
-
     public Object getSessionAttribute(String key) {
         return sessionAttribute.get(key);
     }
@@ -102,11 +99,11 @@ public class RequestHolder {
         for (Map.Entry<String, Object> attribute : sessionAttribute.entrySet()) {
             key = attribute.getKey();
             value = attribute.getValue();
-//            if (value instanceof Serializable) {
-            session.setAttribute(key, value);
-//            } else {
-//                throw new CustomBrokerException("Try to add non-serializable object to session!");
-//            }
+            if (value instanceof Serializable) {
+                session.setAttribute(key, value);
+            } else {
+                throw new CustomBrokerException("Try to add non-serializable object to session!");
+            }
         }
     }
 }

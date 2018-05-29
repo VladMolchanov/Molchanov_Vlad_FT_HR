@@ -37,7 +37,7 @@
 
 <c:import url="logotype.jsp"/>
 
-<c:import url="register_user.jsp"/>
+<c:import url="registration/register_user.jsp"/>
 
 <c:import url="user_profile.jsp"/>
 
@@ -132,7 +132,7 @@
                         </div>
                         <div id="collapseOne" class="collapse show" data-parent="#accordion">
                             <div class="card-body">
-                                <c:import url="vacancy_content.jsp"/>
+                                <c:import url="content/vacancy_content.jsp"/>
                             </div>
                         </div>
                     </div>
@@ -146,7 +146,7 @@
                                 </div>
                                 <div id="collapseTwo" class="collapse" data-parent="#accordion">
                                     <div class="card-body">
-                                        <c:import url="request_content.jsp"/>
+                                        <c:import url="content/request_content.jsp"/>
                                     </div>
                                 </div>
                             </div>
@@ -158,7 +158,7 @@
                                 </div>
                                 <div id="collapseThree" class="collapse" data-parent="#accordion">
                                     <div class="card-body">
-                                        <c:import url="register_vacancy.jsp"/>
+                                        <c:import url="registration/register_vacancy.jsp"/>
                                     </div>
                                 </div>
                             </div>
@@ -172,7 +172,7 @@
                                 </div>
                                 <div id="collapseFour" class="collapse" data-parent="#accordion">
                                     <div class="card-body">
-                                        <c:import url="user_content.jsp"/>
+                                        <c:import url="content/user_content.jsp"/>
                                     </div>
                                 </div>
                             </div>
@@ -184,7 +184,7 @@
                                 </div>
                                 <div id="collapseFive" class="collapse" data-parent="#accordion">
                                     <div class="card-body">
-                                        <c:import url="organization_content.jsp"/>
+                                        <c:import url="content/organization_content.jsp"/>
                                     </div>
                                 </div>
                             </div>
@@ -193,7 +193,7 @@
                 </div>
             </c:when>
             <c:otherwise>
-                <c:import url="vacancy_content.jsp"/>
+                <c:import url="content/vacancy_content.jsp"/>
             </c:otherwise>
         </c:choose>
     </div>
