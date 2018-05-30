@@ -6,7 +6,7 @@ package by.molchanov.humanresources.executor;
  *
  * @author Molchanov Vladislav
  */
-public class PropertyMessageVariablesName {
+public final class PropertyMessageVariablesName {
     public static final String UNKNOWN_USER = "content.information.unknown.user";
     public static final String USER_AUTHENTICATION_SUCCESSFUL = "content.information.successful.authentication";
     public static final String USER_REGISTRATION_INCORRECT_EMAIL = "content.information.user.registration.incorrect.email";

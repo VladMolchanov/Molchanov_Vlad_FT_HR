@@ -6,7 +6,7 @@ package by.molchanov.humanresources.command;
  *
  * @author Molchanov Vladislav
  */
-public class SessionRequestAttributeName {
+public final class SessionRequestAttributeName {
     public static final String COMMAND = "command";
     public static final String LOCALE = "locale";
     public static final String HASH = "hash";

@@ -5,7 +5,7 @@ package by.molchanov.humanresources.dao;
  *
  * @author MolchanovVladislav
  */
-public class SQLQueryVariable {
+public final class SQLQueryVariable {
     public static final String USER_QUERY_SELECT = "SELECT u_id, u_email, u_role, u_password, u_firstname," +
             " u_lastname, u_organization_id FROM user ";
     public static final String USER_QUERY_UPDATE = "UPDATE user SET u_email = ?, u_role = ?, u_password = ?, u_firstname = ?," +
