@@ -8,7 +8,7 @@ import java.util.List;
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.*;
 
 /**
- * Class {@link LogOutExecutorImpl} used for log out from system.
+ * Class {@link LogOutExecutorImpl} is used for log out from system.
  *
  * @author Molchanov Vladislav
  * @see LogOutExecutor
@@ -25,9 +25,9 @@ public class LogOutExecutorImpl implements LogOutExecutor {
     }
 
     public List<String> logOut() {
-        List<String> attributeForDelete = new ArrayList<>();
-        attributeForDelete.add(ROLE);
-        attributeForDelete.add(USER_INFO);
-        return attributeForDelete;
+        List<String> attributesForDelete = new ArrayList<>();
+        attributesForDelete.add(ROLE);
+        attributesForDelete.add(USER_INFO);
+        return attributesForDelete;
     }
 }

@@ -9,6 +9,12 @@ import java.io.IOException;
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.COMMAND;
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.ROLE;
 
+/**
+ * Class {@link CommandRoleFilter} checks whether user has rights to call certain command.
+ *
+ * @author Molchanov Vladislav
+ * @see Filter
+ */
 public class CommandRoleFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

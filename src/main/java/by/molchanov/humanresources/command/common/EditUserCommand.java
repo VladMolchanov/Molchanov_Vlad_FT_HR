@@ -11,6 +11,12 @@ import by.molchanov.humanresources.executor.impl.EditExecutorImpl;
 
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.*;
 
+/**
+ * Class {@link EditUserCommand} is used for making updates to user.
+ *
+ * @author Molchanov Vladislav
+ * @see ConcreteCommand
+ */
 public class EditUserCommand implements ConcreteCommand {
     private static final EditUserCommand EDIT_USER_COMMAND = new EditUserCommand();
     private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();

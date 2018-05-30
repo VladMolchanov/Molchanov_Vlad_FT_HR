@@ -18,7 +18,7 @@ import static by.molchanov.humanresources.executor.PropertyMessageVariablesName.
 import static by.molchanov.humanresources.executor.PropertyMessageVariablesName.USER_AUTHENTICATION_SUCCESSFUL;
 
 /**
- * Class {@link AuthenticationExecutorImpl} used for user authentication.
+ * Class {@link AuthenticationExecutorImpl} is used for user authentication.
  *
  * @author Molchanov Vladislav
  * @see AuthenticationExecutor

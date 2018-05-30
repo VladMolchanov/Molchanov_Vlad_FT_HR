@@ -20,7 +20,7 @@ import static by.molchanov.humanresources.entity.JobVacancyStatusType.OPEN;
 import static by.molchanov.humanresources.entity.JobVacancyStatusType.NEW;
 
 /**
- * Class {@link FillContentExecutorImpl} used for fill page content.
+ * Class {@link FillContentExecutorImpl} is used for fill page content.
  *
  * @author Molchanov Vladislav
  * @see FillContentExecutor

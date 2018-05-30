@@ -10,7 +10,9 @@ import org.apache.logging.log4j.Logger;
 import static by.molchanov.humanresources.command.ResponseType.FORWARD;
 
 /**
+ * Class {@link OperationFactory} is used for getting certain command and response type.
  *
+ * @author Molchanov Vladislav
  */
 public class OperationFactory {
     private static final Logger LOGGER = LogManager.getLogger();

@@ -14,6 +14,12 @@ import java.util.List;
 
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.USER_ID;
 
+/**
+ * Class {@link RiseToAdminCommand} makes admin from user in system.
+ *
+ * @author Molchanov Vladislav
+ * @see  ConcreteCommand
+ */
 public class RiseToAdminCommand implements ConcreteCommand {
     private static final RiseToAdminCommand RISE_TO_ADMIN_COMMAND = new RiseToAdminCommand();
     private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();

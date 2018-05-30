@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Class {@link DeleteCloseExecutorImpl} used for delete or close records.
+ * Class {@link DeleteCloseExecutorImpl} is used for delete or close records.
  *
  * @author Molchanov Vladislav
  * @see DeleteCloseExecutor

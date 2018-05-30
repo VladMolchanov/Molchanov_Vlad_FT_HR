@@ -14,6 +14,12 @@ import java.util.List;
 
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.ORGANIZATION_ID;
 
+/**
+ * Class {@link DeleteOrganizationCommand} is used for delete organization from system.
+ *
+ * @author Molchanov Vladislav
+ * @see ConcreteCommand
+ */
 public class DeleteOrganizationCommand implements ConcreteCommand {
     private static final DeleteOrganizationCommand DELETE_ORGANIZATION_COMMAND = new DeleteOrganizationCommand();
     private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();

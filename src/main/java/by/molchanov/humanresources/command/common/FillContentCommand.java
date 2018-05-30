@@ -166,8 +166,8 @@ public class FillContentCommand implements ConcreteCommand {
             usersQuantity = 10;
         }
         try {
-                users = fillContentExecutor.fillUser(userRole, startUserNumber, usersQuantity);
-                usersCount = fillContentExecutor.findUsersCount(userRole);
+            users = fillContentExecutor.fillUser(userRole, startUserNumber, usersQuantity);
+            usersCount = fillContentExecutor.findUsersCount(userRole);
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
         }

@@ -12,6 +12,12 @@ import by.molchanov.humanresources.executor.impl.EditExecutorImpl;
 
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.*;
 
+/**
+ * Class {@link EditVacancyCommand} is used for making updates to vacancy.
+ *
+ * @author Molchanov Vladislav
+ * @see ConcreteCommand
+ */
 public class EditVacancyCommand implements ConcreteCommand {
     private static final EditVacancyCommand EDIT_VACANCY_COMMAND = new EditVacancyCommand();
     private ConcreteCommand fillContentCommand = FillContentCommand.getInstance();

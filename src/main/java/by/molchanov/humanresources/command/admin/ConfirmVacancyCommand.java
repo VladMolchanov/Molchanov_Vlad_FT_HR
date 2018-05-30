@@ -27,7 +27,7 @@ public class ConfirmVacancyCommand implements ConcreteCommand {
 
     }
 
-    public static ConfirmVacancyCommand getIstance() {
+    public static ConfirmVacancyCommand getInstance() {
         return CONFIRM_VACANCY_COMMAND;
     }
 

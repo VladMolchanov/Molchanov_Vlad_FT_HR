@@ -3,6 +3,7 @@ package by.molchanov.humanresources.command.common;
 import by.molchanov.humanresources.command.ConcreteCommand;
 import by.molchanov.humanresources.controller.RequestHolder;
 import by.molchanov.humanresources.dto.UserDataDTO;
+import by.molchanov.humanresources.entity.User;
 import by.molchanov.humanresources.exception.CustomBrokerException;
 import by.molchanov.humanresources.exception.CustomExecutorException;
 import by.molchanov.humanresources.executor.AuthenticationExecutor;
@@ -37,9 +38,10 @@ public class AuthenticationCommand implements ConcreteCommand {
         String password = requestHolder.getSingleRequestParameter(FIRST_POSITION, PASS);
         try {
             userDataDTO = authenticationExecutor.checkUserAccessory(email, password);
-            if (userDataDTO.getUserExemplar() != null) {
-                requestHolder.addSessionAttribute(ROLE, userDataDTO.getUserExemplar().getRole().getValue());
-                requestHolder.addSessionAttribute(USER_INFO, userDataDTO.getUserExemplar());
+            User user = userDataDTO.getUserExemplar();
+            if (user != null) {
+                requestHolder.addSessionAttribute(ROLE, user.getRole().getValue());
+                requestHolder.addSessionAttribute(USER_INFO, user);
             }
             fillContentCommand.execute(requestHolder);
         } catch (CustomExecutorException e) {

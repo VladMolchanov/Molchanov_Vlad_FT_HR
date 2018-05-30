@@ -14,9 +14,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashSet;
 
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.COMMAND;
 
+/**
+ * Class {@link Controller} is the main servlet of application. Accepts requests and sends responses.
+ *
+ * @author Molchanov Vladislav
+ * @see HttpServlet
+ */
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -46,17 +53,18 @@ public class Controller extends HttpServlet {
         String requestCommand = requestHolder.getSingleRequestParameter(FIRST_INDEX, COMMAND);
         ConcreteCommand command = operationFactory.getConcreteCommand(requestCommand);
         ResponseType responseType = operationFactory.getResponseType(requestCommand);
-        try {
-            command.execute(requestHolder);
-            requestHolder.update(request);
-        } catch (CustomBrokerException e) {
-            LOGGER.warn(e.getMessage(), e);
-            responseType = ResponseType.REDIRECT;
-        }
-        if (responseType == ResponseType.FORWARD) {
-            getServletContext().getRequestDispatcher(MAIN_PAGE).forward(request, response);
-        } else if (responseType == ResponseType.REDIRECT) {
-            response.sendRedirect(MAIN_PAGE);
-        }
+        throw new IOException();
+//        try {
+//            command.execute(requestHolder);
+//            requestHolder.update(request);
+//        } catch (CustomBrokerException e) {
+//            LOGGER.warn(e.getMessage(), e);
+//            responseType = ResponseType.REDIRECT;
+//        }
+//        if (responseType == ResponseType.FORWARD) {
+//            getServletContext().getRequestDispatcher(MAIN_PAGE).forward(request, response);
+//        } else if (responseType == ResponseType.REDIRECT) {
+//            response.sendRedirect(MAIN_PAGE);
+//        }
     }
 }

@@ -19,7 +19,7 @@ import static by.molchanov.humanresources.entity.JobRequest.COMPARE_BY_USER_NAME
 import static by.molchanov.humanresources.entity.JobRequest.COMPARE_BY_VAC_NAME;
 
 /**
- * Class {@link FilterExecutorImpl} used for searching and filter records.
+ * Class {@link FilterExecutorImpl} is used for searching and filter records.
  *
  * @author Molchanov Vladislav
  * @see FilterExecutor

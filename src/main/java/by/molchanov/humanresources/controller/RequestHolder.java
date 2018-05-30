@@ -18,26 +18,27 @@ import static by.molchanov.humanresources.command.SessionRequestAttributeName.HA
 public class RequestHolder {
     private static final int PRIMARY_HASH = 0;
     private static final String EMPTY_STRING = "";
-    private Map<String, Object> requestAttribute = new HashMap<>();
-    private Map<String, Object> sessionAttribute = new HashMap<>();
-    private Map<String, String[]> requestParameter = new HashMap<>();
+    private Map<String, Object> requestAttributes = new HashMap<>();
+    private Map<String, Object> sessionAttributes = new HashMap<>();
+    private Map<String, String[]> requestParameters = new HashMap<>();
+    private List<String> sessionAttributesForDelete = new ArrayList<>();
 
     public RequestHolder(HttpServletRequest request) {
         Object retrievedObject;
         String retrievedName;
-        requestParameter = new HashMap<>(request.getParameterMap());
+        requestParameters = new HashMap<>(request.getParameterMap());
         HttpSession session = request.getSession();
         Enumeration<String> sessionAttributeNames = session.getAttributeNames();
         Enumeration<String> requestAttributeNames = request.getAttributeNames();
         while (requestAttributeNames.hasMoreElements()) {
             retrievedName = requestAttributeNames.nextElement();
             retrievedObject = request.getAttribute(retrievedName);
-            requestAttribute.put(retrievedName, retrievedObject);
+            requestAttributes.put(retrievedName, retrievedObject);
         }
 
         Integer currentHash = PRIMARY_HASH;
         Integer hash = (Integer) session.getAttribute(HASH);
-        for (Map.Entry<String, String[]> pair : requestParameter.entrySet()) {
+        for (Map.Entry<String, String[]> pair : requestParameters.entrySet()) {
             currentHash += pair.getValue()[0].hashCode();
             currentHash += pair.getKey().hashCode();
         }
@@ -47,56 +48,60 @@ public class RequestHolder {
             session.removeAttribute(HASH);
             session.setAttribute(HASH, currentHash);
         } else {
-            requestParameter.remove(COMMAND);
+            requestParameters.remove(COMMAND);
         }
         while (sessionAttributeNames.hasMoreElements()) {
             retrievedName = sessionAttributeNames.nextElement();
             retrievedObject = session.getAttribute(retrievedName);
-            sessionAttribute.put(retrievedName, retrievedObject);
+            sessionAttributes.put(retrievedName, retrievedObject);
         }
     }
 
     public void addRequestAttribute(String key, Object value) {
-        requestAttribute.put(key, value);
+        requestAttributes.put(key, value);
     }
 
     public void addSessionAttribute(String key, Object value) {
         removeSessionAttribute(key);
-        sessionAttribute.put(key, value);
+        sessionAttributes.put(key, value);
     }
 
     public Object getSessionAttribute(String key) {
-        return sessionAttribute.get(key);
+        return sessionAttributes.get(key);
     }
 
     public String getSingleRequestParameter(int position, String key) {
-        if (requestParameter.isEmpty()) {
+        if (requestParameters.isEmpty()) {
             return EMPTY_STRING;
         }
-        return requestParameter.containsKey(key) ? requestParameter.get(key)[position] : EMPTY_STRING;
+        return requestParameters.containsKey(key) ? requestParameters.get(key)[position] : EMPTY_STRING;
     }
 
     public String[] getRequestParameter(String key) {
-        return requestParameter.get(key);
+        return requestParameters.get(key);
     }
 
     public void removeSessionAttribute(String... attributeForDelete) {
         for (String attribute : attributeForDelete) {
-            sessionAttribute.put(attribute, null);
+            sessionAttributes.remove(attribute);
+            sessionAttributesForDelete.add(attribute);
         }
     }
 
     public void update(HttpServletRequest request) throws CustomBrokerException {
         String key;
         Object value;
-        for (Map.Entry<String, Object> attribute : requestAttribute.entrySet()) {
+        for (Map.Entry<String, Object> attribute : requestAttributes.entrySet()) {
             key = attribute.getKey();
             value = attribute.getValue();
             request.setAttribute(key, value);
         }
         HttpSession session = request.getSession();
+        for (String attribute: sessionAttributesForDelete) {
+            session.removeAttribute(attribute);
+        }
 
-        for (Map.Entry<String, Object> attribute : sessionAttribute.entrySet()) {
+        for (Map.Entry<String, Object> attribute : sessionAttributes.entrySet()) {
             key = attribute.getKey();
             value = attribute.getValue();
             if (value instanceof Serializable) {

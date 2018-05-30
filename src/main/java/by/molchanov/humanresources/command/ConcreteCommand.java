@@ -12,7 +12,7 @@ import by.molchanov.humanresources.exception.CustomBrokerException;
 public interface ConcreteCommand {
     /**
      * Does different work to handle command
-     * @param requestHolder Object of {@link RequestHolder}, which contains all servlet request content.
+     * @param requestHolder Object of {@link RequestHolder} which contains all servlet request content.
      * @throws CustomBrokerException Custom exception of command level.
      */
     void execute(RequestHolder requestHolder) throws CustomBrokerException;

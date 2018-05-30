@@ -54,9 +54,10 @@ public class UserRegistrationCommand implements ConcreteCommand {
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
         }
-        if (userDataDTO.getUserExemplar().getRole() != null) {
-            requestHolder.addSessionAttribute(USER_INFO, userDataDTO.getUserExemplar());
-            requestHolder.addSessionAttribute(ROLE, userDataDTO.getUserExemplar().getRole().getValue());
+        User transferredUser = userDataDTO.getUserExemplar();
+        if (transferredUser.getRole() != null) {
+            requestHolder.addSessionAttribute(USER_INFO, transferredUser);
+            requestHolder.addSessionAttribute(ROLE, transferredUser.getRole().getValue());
         }
         requestHolder.addRequestAttribute(INFO_MESSAGE, userDataDTO.getInfoMessage());
     }

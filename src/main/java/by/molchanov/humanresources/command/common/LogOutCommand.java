@@ -29,8 +29,7 @@ public class LogOutCommand implements ConcreteCommand {
 
     @Override
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
-        List<String> attributeForDelete;
-        attributeForDelete = logOutExecutor.logOut();
+        List<String> attributeForDelete = logOutExecutor.logOut();
         requestHolder.removeSessionAttribute(attributeForDelete.toArray(new String[attributeForDelete.size()]));
         fillContentCommand.execute(requestHolder);
     }

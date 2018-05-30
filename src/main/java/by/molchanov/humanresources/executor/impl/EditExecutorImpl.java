@@ -22,6 +22,12 @@ import static by.molchanov.humanresources.validator.UserDataValidation.isUserNam
 import static by.molchanov.humanresources.validator.VacancyRequestDataValidation.isTextCorrect;
 import static by.molchanov.humanresources.validator.VacancyRequestDataValidation.isVacancyNameCorrect;
 
+/**
+ * Class {@link EditExecutorImpl} is used for records update.
+ *
+ * @author Molchanov Vladislav
+ * @see EditExecutor
+ */
 public class EditExecutorImpl implements EditExecutor {
     private static final EditExecutorImpl EDIT_EXECUTOR = new EditExecutorImpl();
 

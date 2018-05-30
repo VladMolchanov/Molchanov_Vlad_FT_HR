@@ -112,7 +112,7 @@ public enum ConcreteCommandType {
     CONFIRM_VACANCY {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
-            return ConfirmVacancyCommand.getIstance();
+            return ConfirmVacancyCommand.getInstance();
         }
 
         @Override

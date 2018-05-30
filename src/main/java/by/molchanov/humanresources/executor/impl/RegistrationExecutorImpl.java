@@ -26,7 +26,7 @@ import static by.molchanov.humanresources.validator.OrganizationDataValidation.*
 import static by.molchanov.humanresources.validator.VacancyRequestDataValidation.*;
 
 /**
- * Class {@link RegistrationExecutorImpl} used for different registration.
+ * Class {@link RegistrationExecutorImpl} is used for different registration.
  *
  * @author Molchanov Vladislav
  * @see RegistrationExecutor
