@@ -2,9 +2,11 @@ package by.molchanov.humanresources.executor.impl;
 
 import by.molchanov.humanresources.dao.JobRequestDAO;
 import by.molchanov.humanresources.dao.JobVacancyDAO;
+import by.molchanov.humanresources.dao.OrganizationDAO;
 import by.molchanov.humanresources.dao.UserDAO;
 import by.molchanov.humanresources.dao.impl.JobRequestDAOImpl;
 import by.molchanov.humanresources.dao.impl.JobVacancyDAOImpl;
+import by.molchanov.humanresources.dao.impl.OrganizationDAOImpl;
 import by.molchanov.humanresources.dao.impl.UserDAOImpl;
 import by.molchanov.humanresources.entity.*;
 import by.molchanov.humanresources.exception.CustomDAOException;
@@ -25,6 +27,7 @@ public class ConfirmExecutorImpl implements ConfirmExecutor {
     private JobVacancyDAO jobVacancyDAO = JobVacancyDAOImpl.getInstance();
     private JobRequestDAO jobRequestDAO = JobRequestDAOImpl.getInstance();
     private UserDAO userDAO = UserDAOImpl.getInstance();
+    private OrganizationDAO organizationDAO = OrganizationDAOImpl.getInstance();
 
     public static ConfirmExecutorImpl getInstance() {
         return CONFIRM_EXECUTOR;
@@ -69,6 +72,7 @@ public class ConfirmExecutorImpl implements ConfirmExecutor {
                 user = userDAO.findById(id);
                 user.setRole(UserStatusType.ADMIN);
                 userDAO.update(user);
+                organizationDAO.delete(user.getOrganization());
             } catch (CustomDAOException e) {
                 throw new CustomExecutorException(e);
             }
